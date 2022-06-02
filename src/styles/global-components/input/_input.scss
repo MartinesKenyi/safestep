@@ -1,0 +1,28 @@
+.input {
+    &__title {
+        font-size: 14px;
+        font-family: $ternary-font;
+        font-weight: 300;
+        color: #1F354F;
+    }
+    &__box {
+        border: 1px solid #000;
+        border-radius: 8px;
+        padding: 5px;
+        padding-left: 10px;
+        color: #000;
+        font-family: $secondary-font;
+        font-weight: 500;
+        background: rgb(255, 255, 255, 0.8);
+
+        &::placeholder {
+            letter-spacing: 0.5px;
+        }
+        &:focus-visible {
+           outline: none
+        }
+        &:focus {
+            box-shadow: 0px 2px 3px rgb(0, 0, 0, 8 );;
+        }
+    }
+}

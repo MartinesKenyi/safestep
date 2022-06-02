@@ -1,0 +1,122 @@
+:root {
+    --color-background: #FCFCFC;
+    --color-background-invert: #312F30;
+    --color-texto: #000000;
+    --color-texto-invert: #E4EBF1;
+    --color-white-empresa: #312F30;
+}
+.dark-theme-variables {
+    --color-background: #312F30;
+    --color-background-invert: #FCFCFC;
+    --color-texto: #E4EBF1;
+    --color-texto-invert: #000000;
+    --color-white-empresa: #FFEDE1;
+}
+html,
+body,
+button,
+div,
+span,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+address,
+img,
+small,
+strong,
+b,
+u,
+i,
+ol,
+ul,
+li,
+form,
+label,
+article,
+aside,
+figure,
+figcaption,
+footer,
+menu,
+nav,
+section,
+summary,
+time,
+video {
+ margin: 0;
+ padding: 0;
+ border: 0;
+ vertical-align: baseline;
+ color: var(--color-texto);
+}
+ 
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section {
+ display: block;
+}
+ 
+body {
+ line-height: 1;
+ box-sizing: border-box;
+}
+
+html {
+    font-family: "Cube-p", serif;
+    font-size: 13px;
+}
+
+#root,
+html,
+body {
+    height: 100%;
+}
+
+a,
+button,
+[type="button"],
+[type="submit"],
+[role="button"] {
+ cursor: pointer;
+}
+ 
+a {
+ text-decoration: none;
+}
+ 
+a:hover {
+ text-decoration: underline;
+}
+ 
+button {
+ font-family: inherit;
+ border-style: none;
+ background-color: transparent;
+}
+ 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+ font-weight: normal;
+}
+
+@import "./variables/";
+@import "./base/";
+@import "./global-components/";
+@import "./views/";

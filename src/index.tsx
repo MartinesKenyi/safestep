@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Safestep } from './safestep';
+import './styles/styles.scss';
 
 ReactDOM.render(
   <React.StrictMode>

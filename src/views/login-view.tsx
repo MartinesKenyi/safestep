@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+// import {AuthContext} from '../components/auth/auth-context';
+
 import { Button } from '../global-components/button/button';
 import { Input } from '../global-components/input/input';
 import { useForm } from '../hooks/useForm';
+import { types } from '../types/types';
 
 const classes = {
     main: 'login',
@@ -13,15 +17,32 @@ const classes = {
 
 export const LoginView = () => {
 
+    const navigate = useNavigate();
+
     const [login, setLogin] = useForm({
         email: '',
         password: ''
-      });
+    });
+
+    const { email, password } = login;
+
+    useEffect(() => {
+        console.log('hey')
+    }, [login])
     
+
       const handleLogin = (e: any) => {
         e.preventDefault();
-        const { email, password } = login;
-        console.log(email, password)
+        // const action = {
+        //     type: types.login,
+        //     payload:{email, password}
+        // }
+
+        // dispatch(action);
+        // navigate('/reports',{
+        //     replace: true
+        // })
+        console.log(login)
       }
 
     return (
@@ -33,15 +54,19 @@ export const LoginView = () => {
                     <h3>Inicia sesión</h3>
                     <form onSubmit={handleLogin}>
                         <Input
+                            type='text'
                             name='email'
                             placeholder='Ingrese su cuenta corporativa'
-                            // onChange={(e) => { setLogin(e); dispatch(removeError()) }}
+                            autoComplete='off'
+                            value={email}
+                            onChange={setLogin}
                             required
                         />
                         <Input
                             name="password"
-                            // onChange={(e) => { setLogin(e); dispatch(removeError()) }}
+                            onChange={setLogin} 
                             type="password"
+                            value={ password }
                             placeholder='Ingrese su contraseña'
                             required
                         />
@@ -66,3 +91,4 @@ export const LoginView = () => {
         </div>
     )
 }
+

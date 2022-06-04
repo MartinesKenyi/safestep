@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../components/auth/auth-context';
 import { LoginView } from '../views/login-view';
 
 interface Props {
@@ -7,6 +8,9 @@ interface Props {
 
 export const ValidateAccount = ({ children }: Props) => {
 
+    // const { user } = useContext(AuthContext);
+
+    // console.log(user)
     const uid = false
 
     if ( false ) {

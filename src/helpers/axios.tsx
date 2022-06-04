@@ -1,4 +1,4 @@
-const baseUrl = process.env.REACT_APP_API_URL || '';
+const baseUrl = process.env.REACT_APP_API_URL || 'https://safestep.herokuapp.com/api';
 const axios = require('axios');
 
 const axiosSinToken = (endpoint: string, data: any = null, method = 'GET') => {

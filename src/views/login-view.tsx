@@ -1,9 +1,11 @@
+import axios from 'axios';
 import React, { useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import {AuthContext} from '../components/auth/auth-context';
+// import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/auth/auth-context';
 
 import { Button } from '../global-components/button/button';
 import { Input } from '../global-components/input/input';
+import { axiosSinToken } from '../helpers/axios';
 import { useForm } from '../hooks/useForm';
 import { types } from '../types/types';
 
@@ -17,7 +19,8 @@ const classes = {
 
 export const LoginView = () => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+    const { dispatch } = useContext(AuthContext);
 
     const [login, setLogin] = useForm({
         email: '',
@@ -27,23 +30,23 @@ export const LoginView = () => {
     const { email, password } = login;
 
     useEffect(() => {
-        console.log('hey')
     }, [login])
     
-
-      const handleLogin = (e: any) => {
+    const handleLogin = (e: any) => {
         e.preventDefault();
-        // const action = {
-        //     type: types.login,
-        //     payload:{email, password}
-        // }
 
-        // dispatch(action);
+        const action = {
+            type: types.login,
+            payload: {email,password}
+        }
+        dispatch(action)
+
+        const res = axios.get('/auth')
         // navigate('/reports',{
         //     replace: true
         // })
-        console.log(login)
-      }
+    
+    }
 
     return (
         <div className={classes.main}>
@@ -57,7 +60,7 @@ export const LoginView = () => {
                             type='text'
                             name='email'
                             placeholder='Ingrese su cuenta corporativa'
-                            autoComplete='off'
+                            // autoComplete='off'
                             value={email}
                             onChange={setLogin}
                             required

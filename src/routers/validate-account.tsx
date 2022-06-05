@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../components/auth/auth-context';
+import { AuthContext } from '../context/auth/auth-context';
 import { LoginView } from '../views/login-view';
 
 interface Props {
@@ -8,14 +8,14 @@ interface Props {
 
 export const ValidateAccount = ({ children }: Props) => {
 
-    // const { user } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     // console.log(user)
-    const uid = false
+    // const uid = false
 
-    if ( false ) {
-        return (<div><h1>Espere....</h1></div>)
-    }
+    // if ( false ) {
+    //     return (<div><h1>Espere....</h1></div>)
+    // }
 
-    return uid ? children : <LoginView />;
+    return user ? children : <LoginView />;
 }

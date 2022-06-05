@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link, NavLink, useNavigate} from 'react-router-dom';
 import { types } from '../../types/types'
 
-import { AuthContext } from '../auth/auth-context';
+import { AuthContext } from '../../context/auth/auth-context';
 
 export const NavBar = () => {
     

@@ -4,12 +4,15 @@
         font-family: $ternary-font;
         font-weight: 300;
         color: #1F354F;
+        margin-left: 8px;
+        margin-bottom: 5px;
     }
     &__box {
         border: 1px solid #000;
         border-radius: 8px;
         padding: 5px;
         padding-left: 10px;
+        margin-bottom: 5px;
         color: #000;
         font-family: $secondary-font;
         font-weight: 500;
@@ -26,3 +29,4 @@
         }
     }
 }
+

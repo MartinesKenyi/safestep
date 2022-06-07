@@ -1,25 +1,16 @@
 import React from 'react';
 import { Route,Routes } from 'react-router-dom';
-import { Reports } from '../components/reportes/reports';
 import { NavBar } from '../components/uid/navbar';
+
+import { DelictivosScreem } from '../routers/delictivo-screem';
+import { RegisterScreem } from '../routers/register-screem';
+import { ReportsScreen } from '../routers/reports';
 
 
 export const DashboardView = () => {
   return (
     <>
-      <NavBar/>
-
-      <div className="container">
-
-        <Routes>
-          <Route path="reports" element={<Reports />} />
-
-          <Route path="/" element={<Reports />} />
-
-        </Routes>
-
-      </div>
-
+      <RegisterScreem />
     </>
 )
 }

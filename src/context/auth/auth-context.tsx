@@ -1,14 +1,9 @@
-// import { createContext } from 'react';
-
-// export const AuthContext = createContext({} as any );
-
-
 import React, { createContext, useEffect, useReducer } from 'react';
-import axios from 'axios';
-import { axiosConToken } from '../../helpers/axios';
+import axios, { axiosConToken } from '../../helpers/axios';
 
 import { User, LoginData, LoginResponse, RegisterUser } from '../../interfaces/app-interfacess';
 import { authReducer, AuthState } from './auth-reducer';
+// import { types } from '../../types/types'
 
 type AuthContextProps = {
     errorMessage: string;
@@ -25,10 +20,8 @@ const authInicialState: AuthState = {
     status: 'checking',
     token: null,
     user: null,
-    
+    errorMessage: ''
 }
-
-
 
 export const AuthContext = createContext({} as any);
 
@@ -42,17 +35,17 @@ export const AuthProvider = ({ children }: any) => {
     const checkToken = async () => {
         try {
 
-            const token = await localStorage.getItem('token');
+            const token = localStorage.getItem('token');
             // No token, no autenticado
-            // if (!token) return dispatch({ types:notAuthenticated});
+            if (!token) return dispatch({ type: 'notAuthenticated' });
 
             // Hay token
             const resp = await axiosConToken('/auth/renew');
             if (!resp.ok) {
-                // return dispatch({ type: 'notAuthenticated' });
+                return dispatch({ type: 'notAuthenticated' });
             }
 
-            await localStorage.setItem('token', resp.token );
+            localStorage.setItem('token', resp.token );
             
             dispatch({ 
                 type: 'signUp',
@@ -68,6 +61,7 @@ export const AuthProvider = ({ children }: any) => {
     const signIn = async ({ user, password }: LoginData) => {
         try {
             const { data } = await axios.post<LoginResponse>('/auth', { user, password });
+            console.log(data)
             if (data.ok) {
                 dispatch({
                     type: 'signUp',
@@ -76,7 +70,9 @@ export const AuthProvider = ({ children }: any) => {
                         user: data.user
                     }
                 });
-                await localStorage.setItem('token', data.token);
+                localStorage.setItem('token', data.token);
+            } else {
+                console.log( data)
             }
         } catch (error: any) {
             dispatch({
@@ -95,7 +91,7 @@ export const AuthProvider = ({ children }: any) => {
                     user: data.user
                 }
             });
-            await localStorage.setItem('token', data.token);
+            localStorage.setItem('token', data.token);
         } catch (error: any) {
             dispatch({
                 type: 'addError',
@@ -104,19 +100,26 @@ export const AuthProvider = ({ children }: any) => {
         }
     };
     const logOut = async () => {
-        await localStorage.removeItem('token');
-        // dispatch({ type: 'logout' });
+        localStorage.removeItem('token');
+        dispatch({ type: 'logout' });
     };
-    
+    const removeError = () => {
+        dispatch({ type: 'removeError' });
+    };
+
     return (
         <AuthContext.Provider value={{
             ...state,
             signUp,
             signIn,
             logOut,
+            removeError,
             dispatch
         }}>
             {children}
         </AuthContext.Provider>
     )
 }
+
+
+

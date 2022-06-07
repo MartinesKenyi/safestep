@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../context/auth/auth-context';
 import { LoginView } from '../views/login-view';
 
@@ -8,14 +9,11 @@ interface Props {
 
 export const ValidateAccount = ({ children }: Props) => {
 
-    const { user } = useContext(AuthContext);
+    const { status } = useContext(AuthContext);
+    console.log(status)
+    if (status === 'checking') {
+        return <>Validando....</>
+    }
 
-    // console.log(user)
-    // const uid = false
-
-    // if ( false ) {
-    //     return (<div><h1>Espere....</h1></div>)
-    // }
-
-    return user ? children : <LoginView />;
+    return status === "authenticated" ? children : <LoginView />
 }

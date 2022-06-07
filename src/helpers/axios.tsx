@@ -1,37 +1,24 @@
-const baseUrl = process.env.REACT_APP_API_URL || 'https://safestep.herokuapp.com/api';
-const axios = require('axios');
+import axios from 'axios';
 
-const axiosSinToken = (endpoint: string, data: any = null, method = 'GET') => {
-    const url = `${baseUrl}/${endpoint}`;
+const baseURL = 'https://safestep.herokuapp.com/api';
+// const baseURL = 'http://127.0.0.1:8000/api';
 
-    if (method === 'GET') {
-        return axios(url).then(({data}: any) => {
-            return data;
-        }).catch(({ response }: any) => {
-            return response.data;
-        });
-    } else {
-        const config = {
-            method: 'POST',
-            url,
-            headers: {
-                'Content-type': 'application/json'
-            },
-            data
-        }
-        return axios(config).then(({data}: any) => {
-            return data;
-        }).catch(({ response }: any) => {
-            return response.data;
-        });
-    }
-}
+const axiosApi = axios.create({ baseURL });
 
-const axiosConToken = (endpoint: string, data: any = null, method = 'GET') => {
-    const url = `${baseUrl}/${endpoint}`;
-    const Xtoken = localStorage.getItem('cubeU') || '{}';
-    const anonymous = JSON.parse(Xtoken);
-    const token = anonymous?.i?.t || '';
+// axiosApi.interceptors.request.use(
+//     async(config: any) => {
+//         const token = await AsyncStorage.getItem('token');
+//         if ( token ) {
+//             config.headers['x-token'] = token;
+//         }
+//         console.log('axios token line 12', token, config)
+//         return config;
+//     }
+// );
+
+export const axiosConToken = async (endpoint: string, data: any = null, method = 'GET') => {
+    const url = `${baseURL}${endpoint}`;
+    const token = await localStorage.getItem('token') || '';
 
     if (method === 'GET') {
         const config = {
@@ -64,7 +51,4 @@ const axiosConToken = (endpoint: string, data: any = null, method = 'GET') => {
     }
 }
 
-export {
-    axiosSinToken,
-    axiosConToken,
-}
+export default axiosApi;

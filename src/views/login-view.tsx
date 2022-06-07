@@ -1,13 +1,10 @@
-import axios from 'axios';
 import React, { useContext, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/auth/auth-context';
 
 import { Button } from '../global-components/button/button';
 import { Input } from '../global-components/input/input';
-import { axiosSinToken } from '../helpers/axios';
 import { useForm } from '../hooks/useForm';
-import { types } from '../types/types';
 
 const classes = {
     main: 'login',
@@ -19,33 +16,19 @@ const classes = {
 
 export const LoginView = () => {
 
-    // const navigate = useNavigate();
-    const { dispatch } = useContext(AuthContext);
+    const { dispatch, signIn } = useContext(AuthContext);
 
     const [login, setLogin] = useForm({
-        email: '',
+        user: '',
         password: ''
     });
 
-    const { email, password } = login;
-
-    useEffect(() => {
-    }, [login])
+    const { user, password } = login;
     
-    const handleLogin = (e: any) => {
+    const handleLogin = async(e: any) => {
         e.preventDefault();
-
-        const action = {
-            type: types.login,
-            payload: {email,password}
-        }
-        dispatch(action)
-
-        const res = axios.get('/auth')
-        // navigate('/reports',{
-        //     replace: true
-        // })
-    
+        
+        signIn( {user,password});
     }
 
     return (
@@ -58,10 +41,10 @@ export const LoginView = () => {
                     <form onSubmit={handleLogin}>
                         <Input
                             type='text'
-                            name='email'
+                            name='user'
                             placeholder='Ingrese su cuenta corporativa'
                             // autoComplete='off'
-                            value={email}
+                            value={user}
                             onChange={setLogin}
                             required
                         />

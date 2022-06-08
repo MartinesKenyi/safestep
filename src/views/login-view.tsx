@@ -16,7 +16,7 @@ const classes = {
 
 export const LoginView = () => {
 
-    const { dispatch, signIn } = useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
 
     const [login, setLogin] = useForm({
         user: '',

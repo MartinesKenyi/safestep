@@ -32,10 +32,12 @@ export const AuthProvider = ({ children }: any) => {
         checkToken();
     }, [])
 
+    // verificar token
     const checkToken = async () => {
         try {
 
             const token = localStorage.getItem('token');
+
             // No token, no autenticado
             if (!token) return dispatch({ type: 'notAuthenticated' });
 
@@ -61,19 +63,18 @@ export const AuthProvider = ({ children }: any) => {
     const signIn = async ({ user, password }: LoginData) => {
         try {
             const { data } = await axios.post<LoginResponse>('/auth', { user, password });
-            console.log(data)
-            if (data.ok) {
-                dispatch({
-                    type: 'signUp',
-                    payload: {
-                        token: data.token,
-                        user: data.user
-                    }
-                });
-                localStorage.setItem('token', data.token);
-            } else {
-                console.log( data)
-            }
+                if (data.ok) {
+                    dispatch({
+                        type: 'signUp',
+                        payload: {
+                            token: data.token,
+                            user: data.user
+                        }
+                    });
+                    localStorage.setItem('token', data.token);
+                } else {
+                    console.log( data)
+                }
         } catch (error: any) {
             dispatch({
                 type: 'addError',
@@ -81,24 +82,30 @@ export const AuthProvider = ({ children }: any) => {
             })
         }
     };
-    const signUp = async ({ role = null, name, user, sector, password }: RegisterUser) => {
-        try {
-            const { data } = await axios.post<LoginResponse>('/users', { role, name, user, sector, password });
+
+    // registrar usuario
+    const signUp = async ({ role, name, user, sector, password }: RegisterUser) => {
+       
+        const {data}: any = await axios.post<LoginResponse>('/users', { role, name, user, sector, password });
+        console.log(data)
+        if(data.ok) {
             dispatch({
                 type: 'signUp',
                 payload: {
                     token: data.token,
                     user: data.user
                 }
-            });
-            localStorage.setItem('token', data.token);
-        } catch (error: any) {
+            })
+            return data.ok
+        } else {
             dispatch({
                 type: 'addError',
-                payload: error.response.data.errors[0].msg || 'Revise la información'
-            });
+                payload: JSON.stringify(data || 'Revise la información')
+            })
+            return false
         }
     };
+    
     const logOut = async () => {
         localStorage.removeItem('token');
         dispatch({ type: 'logout' });
@@ -114,7 +121,8 @@ export const AuthProvider = ({ children }: any) => {
             signIn,
             logOut,
             removeError,
-            dispatch
+            dispatch,
+            // onRegisterUser
         }}>
             {children}
         </AuthContext.Provider>

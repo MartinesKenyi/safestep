@@ -14,19 +14,23 @@
     }
 
     &__select {
-        height: 30px;
+        height: 32px;
         color: #8983B1;
         margin-left: 5px;
-        border: 1px solid#000;
+        margin-bottom: 5px;
+        border: 1px solid#292A2D;
         width: 92%;
         padding: 5px 5px 5px 10px;
-        border-radius: 11px;
+        border-radius: 8px;
         font-family: $primary-font;
         background: rgb(255, 255, 255, 0.8);
 
+        &:focus {
+            box-shadow: 0px 2px 3px rgb(0, 0, 0, 8 );;
+        }
         // &:hover {
         //     background: transparent;
-        //     color: #000;
+        //     color: #8983B1;
         // }
         // &:disabled {
         //     opacity: 0.5;

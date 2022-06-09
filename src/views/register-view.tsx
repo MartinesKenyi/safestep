@@ -8,20 +8,20 @@ import { ComboBox } from '../global-components/select/select';
 
 const classes = {
   main: 'register',
-  container: 'register__bla',
+  container: 'register__container',
   title: 'register__title',
   // iconLogo: 'register-logo',
   input: 'register__input',
   wrap: 'register_blu',
 }
 
-export const RegisterScreem = () => {
+export const RegisterView = () => {
 
   const { signUp, errorMessage, removeError, dispatch } = useContext(AuthContext);
   const { roles } = useRoles();
   const { sectors } = useSectors();
 
-  const [values, handleInputChange] = useForm({
+  const [values, handleInputChange,reset] = useForm({
     name: '',
     user: '',
     password: '',
@@ -37,11 +37,11 @@ export const RegisterScreem = () => {
 
     alert(errorMessage);
 
-  }, [errorMessage]);
+  }, [errorMessage,values]);
 
-  const onRegister = (e: any) => {
+  const onRegister = async (e: any) => {
     e.preventDefault();
-
+    
     if (user.trim().length < 4
       || name.trim().length < 4) {
       return dispatch({
@@ -61,19 +61,23 @@ export const RegisterScreem = () => {
         payload: 'Las contraseñas no coinciden'
       });
     }
-    roles.forEach(({ name: nameRole, id }) => {
-      if (nameRole === 'CIUDADANO_ROLE') {
-        signUp({
-          name: name.toLowerCase(),
-          user: user.toLowerCase(),
-          password,
-          sector,
-          role: id
-        });
-      }
-    })
+    
+    const resp = await signUp({
+      name: name.toLowerCase(),
+      user: user.toLowerCase(),
+      password,
+      sector,
+      role
+    });
+    console.log(resp)
+    
+    if (resp) {
+      reset() 
+      console.log('registrado')
+    } else {
+      console.log('error al registrar')
+    }
   }
-
 
   return (
     <div className={classes.main}>

@@ -21,7 +21,7 @@ export const RegisterView = () => {
   const { roles } = useRoles();
   const { sectors } = useSectors();
 
-  const [values, handleInputChange,reset] = useForm({
+  const [values, handleInputChange, reset] = useForm({
     name: '',
     user: '',
     password: '',
@@ -37,11 +37,11 @@ export const RegisterView = () => {
 
     alert(errorMessage);
 
-  }, [errorMessage,values]);
+  }, [errorMessage, values]);
 
   const onRegister = async (e: any) => {
     e.preventDefault();
-    
+
     if (user.trim().length < 4
       || name.trim().length < 4) {
       return dispatch({
@@ -61,7 +61,7 @@ export const RegisterView = () => {
         payload: 'Las contraseñas no coinciden'
       });
     }
-    
+
     const resp: any = await signUp({
       name: name.toLowerCase(),
       user: user.toLowerCase(),
@@ -70,9 +70,9 @@ export const RegisterView = () => {
       role
     });
     console.log(resp)
-    
+
     if (resp) {
-      reset() 
+      reset()
       console.log('registrado')
     } else {
       console.log('error al registrar')
@@ -152,14 +152,14 @@ export const RegisterView = () => {
                   <p className="msg__error"> {msgError} </p>
               )
           } */}
-          <Button
-            title='Registrarse'
-            type='submit'
-
-          />
+          <div className='register__wrap-button'>
+            <Button
+              title='Registrar'
+              type='submit'
+            />
+          </div>
         </form>
       </div>
     </div>
   )
 }
- 

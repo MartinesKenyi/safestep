@@ -33,25 +33,27 @@ export const DelictivoView = () => {
 
     const { title, description } = values;
 
-    const handlePictureClick = ( ) => {
+    const handlePictureClick = () => {
         const input = document.querySelector('#fileSelector') as HTMLInputElement | null;
         if (input != null) {
             input.click();
-
-          }
-    }
-
-    const handleFileChange = (e:any) => {
-        
-        const fileName = e.target.files[0];
-
-        if ( fileName ) {
+            console.log(input)
         }
     }
-    
+
+    const handleFileChange = (e: any) => {
+
+        console.log(e)
+        const fileName = e.target.files[0];
+
+        console.log(fileName)
+        if (fileName) {
+        }
+    }
+
     const onPublish = async () => {
         // setIsEdit(false);
-        
+
         const viewpermise = roles.filter(({ name }) => name !== "CIUDADANO_ROLE").map(rol => rol.id);
         let fileName;
         let type;
@@ -80,56 +82,60 @@ export const DelictivoView = () => {
             // setIsEdit(true);
         }
     }
-        return (
-            <div className={classes.main}>
-                <div className={classes.container}>
-                    <h2> Registro de informacion delictivo </h2>
-                    <input
-                        type="text"
-                        name='title'
-                        placeholder='Título'
-                        value={title}
-                        onChange={handleInputChange}
-                    />
-                    <textarea
-                        // className='information__text-area'
-                        placeholder='Description...'
-                        name="description"
-                        value={description}
-                        onChange={handleInputChange}
-                    >
-                    </textarea>
-                    <div className='information__control-img'>
-                        <img
-                            src={"https://www.revistaneo.com/sites/default/files/2020-10/fondos-padres.jpg"}
-                            alt="places" />
-                    </div>
-
-                    <input
-                        id="fileSelector"
-                        type="file"  //nos permite para buscar un archivo 
-                        name="file"
-                        style={{ display:'none' }} 
-                        onChange={handleFileChange}
-                    />
-
-                    <div className='information__control-btn'>
-                        <button 
+    return (
+        <div className={classes.main}>
+            <div className={classes.container}>
+                <h2> Registro de informacion delictivo </h2>
+                <input
+                    type="text"
+                    name='title'
+                    placeholder='Título'
+                    value={title}
+                    onChange={handleInputChange}
+                />
+                <textarea
+                    // className='information__text-area'
+                    placeholder='Description...'
+                    name="description"
+                    value={description}
+                    onChange={handleInputChange}
+                >
+                </textarea>
+                <div className='btn__wrap-notes'>
+                    <button
                         className="btn__notes"
                         onClick={handlePictureClick}
-                        >
-                            Picture
-                        </button>
-                        <button
-                            title='Compartir'
-                            // className='information__button'
-                            onClick={onPublish}
-                        > 
-                            Compartir
-                        </button>
-                    </div>
+                    >
+                        Picture
+                    </button>
 
                 </div>
+
+                <div className='information__control-img'>
+                    <img
+                        src={"https://gestion.pe/resizer/Xd1pTUYOQtjW_diABxFJDMVG0ig=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/SGK2OFHS3VBUJEURBQU4AOGM4E.jpeg"}
+                        alt="places" />
+                </div>
+
+                <input
+                    id="fileSelector"
+                    type="file"  //nos permite para buscar un archivo 
+                    name="file"
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                />
+
+                <div className='information__control-btn'>
+                    <button
+                        title='Compartir'
+                        // className='information__button'
+                        onClick={onPublish}
+                    >
+                        Publicar
+                    </button>
+                </div>
+
             </div>
-        )
-    }
+        </div>
+    )
+}

@@ -10,8 +10,8 @@ import { ReportsScreen } from '../routers/reports';
 export const DashboardView = () => {
   return (
     <>
-      {/* <RegisterView /> */}
-      <DelictivoView />
+      <RegisterView />
+      {/* <DelictivoView /> */}
     </>
 )
 }

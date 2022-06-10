@@ -2,7 +2,8 @@
 // @custom-media --only-mobile (max-width: 1000px);
 
 .login {
-    background: #cde6ff;
+    // background: $primary-color;
+    background: rgb(219, 226, 226);
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -37,7 +38,7 @@
         backdrop-filter: blur(3px);
         border: solid 1px rgba(0, 0, 0, 0.05);
         border-radius: 5px;
-        box-shadow: 0px 10px 20px 5px rgb(13, 74, 133, 0.22);
+        box-shadow: 0px 10px 20px 5px rgb(0, 0, 0, 0.22);
 
         @media ( max-width: $mobile) {
             display: grid;
@@ -88,5 +89,9 @@
         @media ( max-width: $mobile) {
             grid-row: 1;
         }
+    }
+    &__business {
+        text-decoration: underline;
+        font-size: 18px;
     }
 }

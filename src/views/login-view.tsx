@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../context/auth/auth-context';
 
 import { Button } from '../global-components/button/button';
@@ -11,6 +11,7 @@ const classes = {
     container: 'login__container',
     wrap: 'login__wrap',
     info: 'login__info',
+    business: 'login__business'
 }
 
 export const LoginView = () => {
@@ -67,8 +68,7 @@ export const LoginView = () => {
                     </form>
                 </div>
                 <div className={classes.info}>
-                    {/* logo de la empresa de quien va a ser el dashboard */}
-                    <p>...</p>
+                    <p className={classes.business}>CARMEN DE LA LEGUA REYNOSO</p>
                     <h4>Bienvenido de nuevo! </h4>
                     <p>hoy tenemos nuevos retos que lograr.</p>
                 </div>

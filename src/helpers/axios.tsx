@@ -51,4 +51,20 @@ export const axiosConToken = async (endpoint: string, data: any = null, method =
     }
 }
 
+export const fetchConToken = async (endPoint: string, method = 'GET', contentType: string, data: any) => {
+    const token = await localStorage.getItem('token') || '';
+
+    return fetch(`${baseURL}${endPoint}`, {
+        method,
+        headers: {
+            'Content-Type': contentType,
+            'Accept': 'application/json',
+            'x-token': token
+        },
+        body: data
+    }).then(res => res.json())
+        .then(res => { return res })
+        .catch(err => { return err })
+}
+
 export default axiosApi;

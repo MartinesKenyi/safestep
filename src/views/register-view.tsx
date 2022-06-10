@@ -33,7 +33,7 @@ export const RegisterView = () => {
   const { user, role, password, name, confirmPassword, sector } = values;
 
   useEffect(() => {
-    if (errorMessage.length === 0) return;
+    if (errorMessage?.length === 0) return;
 
     alert(errorMessage);
 
@@ -62,7 +62,7 @@ export const RegisterView = () => {
       });
     }
     
-    const resp = await signUp({
+    const resp: any = await signUp({
       name: name.toLowerCase(),
       user: user.toLowerCase(),
       password,
@@ -162,3 +162,4 @@ export const RegisterView = () => {
     </div>
   )
 }
+ 

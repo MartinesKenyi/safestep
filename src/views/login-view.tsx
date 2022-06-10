@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/auth/auth-context';
 
 import { Button } from '../global-components/button/button';
@@ -78,3 +77,4 @@ export const LoginView = () => {
     )
 }
 
+ 

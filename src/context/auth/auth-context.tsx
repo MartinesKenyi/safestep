@@ -6,7 +6,7 @@ import { authReducer, AuthState } from './auth-reducer';
 // import { types } from '../../types/types'
 
 type AuthContextProps = {
-    errorMessage: string;
+    errorMessage: string | null;
     token: string | null;
     user: User | null;
     status: 'checking' | 'authenticated' | 'not-authenticated';
@@ -14,6 +14,7 @@ type AuthContextProps = {
     signIn: (loginData: LoginData) => void;
     logOut: () => void;
     removeError: () => void;
+    dispatch?: any;
 }
 
 const authInicialState: AuthState = {
@@ -23,7 +24,7 @@ const authInicialState: AuthState = {
     errorMessage: ''
 }
 
-export const AuthContext = createContext({} as any);
+export const AuthContext = createContext({} as AuthContextProps);
 
 export const AuthProvider = ({ children }: any) => {
     const [state, dispatch] = useReducer(authReducer, authInicialState);

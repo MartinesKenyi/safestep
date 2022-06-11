@@ -22,12 +22,10 @@ export const DelictivoView = () => {
     const { user: userData } = useContext(AuthContext);
     const { registerDelictivo } = useContext(DelictivosContext);
     const { roles } = useRoles();
-    const [isEdit, setIsEdit] = useState(true);
+    // const [isEdit, setIsEdit] = useState(true);
     const [tempUri, setTempUri] = useState<string | any>();
-    const [dataImage, setDataImage] = useState<string>();
+    // const [dataImage, setDataImage] = useState<string | any>();
 
-
-    console.log(tempUri);
 
     const [values, handleInputChange] = useForm({
         title: '',
@@ -53,43 +51,37 @@ export const DelictivoView = () => {
         } else {
             console.log('no se recibe el archivo')
         }
-        return fileName
+        return fileName;
     }
 
     const onPublish = async () => {
         // setIsEdit(false);
-
+        
         const viewpermise = roles.filter(({ name }) => name !== "CIUDADANO_ROLE").map(rol => rol.id);
-        let fileName;
-        let type;
-        let image;
- 
-        let tempUri;
 
-        console.log(tempUri)
+        const resp: any = await registerDelictivo(
+            tempUri,
+            {
+                user: userData?.uid || '',
+                modality: null,
+                latitude: 0,
+                longitude: 0,
+                viewpermise: JSON.stringify(viewpermise),
+                title,
+                description
+            }
+        );
 
-        // const resp: any = await registerDelictivo(
-        //     image,
-        //     fileName,
-        //     type,
-        //     {
-        //         user: userData?.uid || '',
-        //         modality: null,
-        //         latitude: 0,
-        //         longitude: 0,
-        //         viewpermise: JSON.stringify(viewpermise),
-        //         title,
-        //         description
-        //     }
-        // );
-
-        // console.log(resp)
-        // if (resp) {
-        //     // setIsEdit(true);
-        //     console.log(resp)
-        // } else {
-        //     // setIsEdit(true);
-        // }
+        if (resp.ok) {
+            // setIsEdit(true);
+            console.log(resp)
+            // TODO: de evniar un mensaje que se guardó
+            // TODO: limpiar el formulario
+        } else {
+            // setIsEdit(true);
+            // TODO: enviar el mensaje erroneo
+            console.log(resp)
+        }
     }
     return (
         <div className={classes.main}>
@@ -104,7 +96,7 @@ export const DelictivoView = () => {
                 />
                 <textarea
                     // className='information__text-area'
-                    placeholder='Description...'
+                    placeholder='Descripción...'
                     name="description"
                     value={description}
                     onChange={handleInputChange}
@@ -145,7 +137,22 @@ export const DelictivoView = () => {
                 </div>
 
             </div>
+
+            <div className='alerts'>
+                <div className='alerts__content'>
+                    {/* <i className=" check fa-light fa-check"></i> */}
+                    <div className='message'>
+                        <span className='text1'>Save</span>
+                        <span className='text2'> Your changes has been</span>
+                    </div>
+                    <i className=" close fa-light fa-x"></i>
+
+                    <div className='progress'></div>
+                </div>
+
+            </div>
         </div>
     )
 }
  
+// safestep-app cloudy

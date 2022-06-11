@@ -7,7 +7,7 @@ import { delictivoReducer } from './delictivo-reducer';
 type ProductsContextProps = {
     delictivos: Delictivo[];
     // loadDelictivos: () => Promise<void>;
-    registerDelictivo: (uri: string | undefined, name: string | undefined, type: string | undefined, delictivo: Delictivo) => void;
+    registerDelictivo: (tempUri: string | undefined, delictivo: Delictivo) => void;
     // updateDelictivo: (delictivo: Delictivo) => Promise<void>;
     loadDelictivoById: (id: string) => Promise<Delictivo>;
     deleteDelictivo: (id: string) => Promise<Delictivo>;
@@ -49,39 +49,32 @@ export const DelictivosProvider = ({ children }: any) => {
     }
 
 
-    const registerDelictivo = async (uri: string | undefined, name: string | undefined, type: string | undefined, delictivo: Delictivo | any) => {
+    const registerDelictivo = async (tempUri: any | undefined, delictivo: Delictivo | any) => {
 
-        console.log(uri,name,type,delictivo);
-        // const formData = new FormData();
+        let formData = new FormData();
 
-        // if (uri && name && type) {
-        //     const fileToUpload: any = {
-        //         name,
-        //         type,
-        //         uri
-        //     }
-        //     formData.append("archive", fileToUpload);
-        // }
-        // console.log(formData);
+        if (tempUri) {
+            formData.append("archive", tempUri);
+        }
 
-        // Object.keys(delictivo).forEach(key => {
-        //     formData.append(key, delictivo[key])
-        // });
-        // const resp = await fetchConToken('/delictivo', 'POST', 'multipart/form-data', formData);
+        Object.keys(delictivo).forEach(key => {
+            formData.append(key, delictivo[key])
+        });
 
-        // if (resp.ok) {
-        //     dispatch({
-        //         type: 'addDelictivo',
-        //         payload: { delictivo: resp.delictivo }
-        //     });
-        //     return resp.ok
-        // } else {
-        //     dispatch({
-        //         type: 'addError',
-        //         payload: JSON.stringify(resp)
-        //     });
-        //     return false
-        // }
+        const resp = await fetchConToken('/delictivo', 'POST', formData);
+        if (resp.ok) {
+            dispatch({
+                type: 'addDelictivo',
+                payload: { delictivo: resp.delictivo }
+            });
+            return resp
+        } else {
+            dispatch({
+                type: 'addError',
+                payload: JSON.stringify(resp)
+            });
+            return resp
+        }
 
     }
 

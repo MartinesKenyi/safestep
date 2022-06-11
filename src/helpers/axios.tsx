@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseURL = 'https://safestep.herokuapp.com/api';
-// const baseURL = 'http://127.0.0.1:8000/api';
+// const baseURL = 'http://192.168.0.104:8000/api';
 
 const axiosApi = axios.create({ baseURL });
 
@@ -51,14 +51,13 @@ export const axiosConToken = async (endpoint: string, data: any = null, method =
     }
 }
 
-export const fetchConToken = async (endPoint: string, method = 'GET', contentType: string, data: any) => {
+// SOLO: para subir imagenes con cuerpo
+export const fetchConToken = async (endPoint: string, method = 'GET', data: any) => {
     const token = await localStorage.getItem('token') || '';
 
     return fetch(`${baseURL}${endPoint}`, {
         method,
         headers: {
-            'Content-Type': contentType,
-            'Accept': 'application/json',
             'x-token': token
         },
         body: data

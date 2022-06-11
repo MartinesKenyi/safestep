@@ -23,8 +23,11 @@ export const DelictivoView = () => {
     const { registerDelictivo } = useContext(DelictivosContext);
     const { roles } = useRoles();
     const [isEdit, setIsEdit] = useState(true);
-    const [tempUri, setTempUri] = useState<string>();
+    const [tempUri, setTempUri] = useState<string | any>();
     const [dataImage, setDataImage] = useState<string>();
+
+
+    console.log(tempUri);
 
     const [values, handleInputChange] = useForm({
         title: '',
@@ -43,12 +46,14 @@ export const DelictivoView = () => {
 
     const handleFileChange = (e: any) => {
 
-        console.log(e)
         const fileName = e.target.files[0];
 
-        console.log(fileName)
         if (fileName) {
+            setTempUri(fileName)
+        } else {
+            console.log('no se recibe el archivo')
         }
+        return fileName
     }
 
     const onPublish = async () => {
@@ -58,29 +63,33 @@ export const DelictivoView = () => {
         let fileName;
         let type;
         let image;
+ 
+        let tempUri;
 
-        const resp: any = await registerDelictivo(
-            image,
-            fileName,
-            type,
-            {
-                user: userData?.uid || '',
-                modality: null,
-                latitude: 0,
-                longitude: 0,
-                viewpermise: JSON.stringify(viewpermise),
-                title,
-                description
-            }
-        );
+        console.log(tempUri)
 
-        console.log(resp)
-        if (resp) {
-            // setIsEdit(true);
-            console.log(resp)
-        } else {
-            // setIsEdit(true);
-        }
+        // const resp: any = await registerDelictivo(
+        //     image,
+        //     fileName,
+        //     type,
+        //     {
+        //         user: userData?.uid || '',
+        //         modality: null,
+        //         latitude: 0,
+        //         longitude: 0,
+        //         viewpermise: JSON.stringify(viewpermise),
+        //         title,
+        //         description
+        //     }
+        // );
+
+        // console.log(resp)
+        // if (resp) {
+        //     // setIsEdit(true);
+        //     console.log(resp)
+        // } else {
+        //     // setIsEdit(true);
+        // }
     }
     return (
         <div className={classes.main}>
@@ -139,3 +148,4 @@ export const DelictivoView = () => {
         </div>
     )
 }
+ 

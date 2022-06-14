@@ -3,7 +3,7 @@ import axios, { axiosConToken } from '../../helpers/axios';
 
 import { User, LoginData, LoginResponse, RegisterUser } from '../../interfaces/app-interfacess';
 import { authReducer, AuthState } from './auth-reducer';
-// import { types } from '../../types/types'
+// import { types } from '../../types/types';
 
 type AuthContextProps = {
     errorMessage: string | null;
@@ -61,6 +61,8 @@ export const AuthProvider = ({ children }: any) => {
             console.log('auth context line 62',error)
         }
     }
+
+    
     const signIn = async ({ user, password }: LoginData) => {
         try {
             const { data } = await axios.post<LoginResponse>('/auth', { user, password });
@@ -97,13 +99,13 @@ export const AuthProvider = ({ children }: any) => {
                     user: data.user
                 }
             })
-            return data.ok
+            return data
         } else {
             dispatch({
                 type: 'addError',
                 payload: JSON.stringify(data || 'Revise la información')
             })
-            return false
+            return data
         }
     };
     
@@ -111,6 +113,7 @@ export const AuthProvider = ({ children }: any) => {
         localStorage.removeItem('token');
         dispatch({ type: 'logout' });
     };
+
     const removeError = () => {
         dispatch({ type: 'removeError' });
     };

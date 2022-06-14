@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 import { DashboardView } from '../views/dashboard-view';
-import { LoginView } from '../views/login-view';
+// import { LoginView } from '../views/login-view';
 import { ValidateAccount } from './validate-account';
 
 export const AppRouter = () => {
@@ -23,7 +23,7 @@ export const AppRouter = () => {
                 <DashboardView />
               </ValidateAccount>}
           />
-          <Route path='/login' element={<LoginView />} />
+          {/* <Route path='/login' element={<LoginView />} /> */}
 
           <Route
             path="*"
@@ -35,4 +35,5 @@ export const AppRouter = () => {
     </>
   )
 }
+
 

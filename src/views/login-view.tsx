@@ -42,7 +42,7 @@ export const LoginView = () => {
     const { user, password } = login;
     
     const handleLogin = async(e: any) => {
-        // e.preventDefault();
+        e.preventDefault();
         
         if (password.trim().length < 4) {
             return alert('danger','Contraseña','Contraseña incorrecto');
@@ -75,7 +75,7 @@ export const LoginView = () => {
             <div className={classes.container}>
                 <div className={classes.wrap}>
                     <h3>Inicia sesión</h3>
-                    {/* <form onSubmit={handleLogin}> */}
+                    <form onSubmit={handleLogin}>
                         <Input
                             type='text'
                             name='user'
@@ -100,11 +100,11 @@ export const LoginView = () => {
                         } */}
                         <Button
                             title='Iniciar sesión'
-                            // type='submit'
-                            onClick={handleLogin}
+                            type='submit'
+                            // onClick={handleLogin}
                         />
 
-                    {/* </form> */}
+                    </form>
                 </div>
                 <div className={classes.info}>
                     <p className={classes.business}>CARMEN DE LA LEGUA REYNOSO</p>

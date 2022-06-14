@@ -1,5 +1,4 @@
 import React from 'react';
-import { types } from '../../types/types';
 import { User } from '../../interfaces/app-interfacess';
 
 export interface AuthState {

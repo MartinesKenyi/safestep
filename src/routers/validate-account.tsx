@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../context/auth/auth-context';
 import { LoginView } from '../views/login-view';
 

@@ -11,6 +11,7 @@
     padding:10px 24px 10px 13px;
     box-shadow: 0 4px 10px #000;
     border-left:#4070f4 ;
+    overflow: hidden;
 
     &__content{
         display: flex;
@@ -38,17 +39,26 @@
             color: #333;
             margin: 5px;
         }
-        .close {
-            position: absolute;
-            top:10px;
-            right: 10px;
-            padding:5px;
-            cursor: pointer;
-            opacity: 0.7;
-        }
-        .close:hover{
-            opacity:1;
-        }
+
+    
     }
+
+    &--danger{
+            border-left: 5px solid red;
+    }
+
+    &--success{
+        border-left: 5px solid green;
+    }
+
+    &--info{
+        border-left: 5px solid #4070f4;
+    }
+
+    &--warning{
+        border-left: 5px solid yellow;
+    }
+
+
 }
 

@@ -1,25 +1,40 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Input } from '../global-components/input/input';
 import { Button } from '../global-components/button/button';
 import { useForm } from '../hooks/useForm';
 import { useRoles, useSectors } from '../hooks/usedate';
 import { AuthContext } from '../context/auth/auth-context';
 import { ComboBox } from '../global-components/select/select';
+import { Alert } from '../global-components/alert/alert';
+import { createJSDocCallbackTag } from 'typescript';
 
 const classes = {
   main: 'register',
   container: 'register__container',
   title: 'register__title',
-  // iconLogo: 'register-logo',
   input: 'register__input',
   wrap: 'register_blu',
 }
 
+interface alertProps {
+  type: 'success' | 'danger' | 'info', 
+  message?: string,
+  title: string,
+  show: boolean
+}
+
 export const RegisterView = () => {
 
-  const { signUp, errorMessage, removeError, dispatch } = useContext(AuthContext);
+  const { signUp, errorMessage, dispatch } = useContext(AuthContext);
   const { roles } = useRoles();
   const { sectors } = useSectors();
+
+  const [dataAlert, setDataAlert] = useState<alertProps>({
+    type: 'success',
+    message: '',
+    title: '',
+    show: false
+  });
 
   const [values, handleInputChange, reset] = useForm({
     name: '',
@@ -34,32 +49,20 @@ export const RegisterView = () => {
 
   useEffect(() => {
     if (errorMessage?.length === 0) return;
-
-    alert(errorMessage);
-
   }, [errorMessage, values]);
 
   const onRegister = async (e: any) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     if (user.trim().length < 4
       || name.trim().length < 4) {
-      return dispatch({
-        type: 'addError',
-        payload: 'Todos los datos son importantes!'
-      });
+      return alert('danger','name','Debe contener más de 5 caracteres el usuario ');
     }
     if (password.trim().length < 4) {
-      return dispatch({
-        type: 'addError',
-        payload: 'La contraseña debe de ser mayor a 6 dígitos'
-      });
+      return alert('danger','contraseña','Debe tener más 6 caracteres');
     }
     if (confirmPassword.trim() !== password.trim()) {
-      return dispatch({
-        type: 'addError',
-        payload: 'Las contraseñas no coinciden'
-      });
+      return alert('danger','confirmar contraseña','Deben ser iguales');
     }
 
     const resp: any = await signUp({
@@ -69,21 +72,41 @@ export const RegisterView = () => {
       sector,
       role
     });
-    console.log(resp)
 
     if (resp) {
+      alert('success','Guardado', 'Se registró el usuario')
       reset()
-      console.log('registrado')
     } else {
-      console.log('error al registrar')
+      alert('danger','Usuario','Error al registrar')
     }
+  }
+
+  const alert = (type: 'success' | 'danger' | 'info', title: string, message: string) => {
+    setDataAlert({
+        type,
+        title,
+        message,
+        show: true
+    })
+
+    setTimeout(() => {
+        setDataAlert({
+            type: 'success',
+            title: '',
+            message: '',
+            show: false
+        })
+    }, 3000)
   }
 
   return (
     <div className={classes.main}>
       <div className={classes.container}>
         <h3 className={classes.title}>Registrar Usuario</h3>
-        <form onSubmit={onRegister}>
+        {/* <form 
+          onSubmit={onRegister}
+          // onSubmit={prueba}
+          > */}
           <Input
             type='text'
             name='name'
@@ -155,11 +178,19 @@ export const RegisterView = () => {
           <div className='register__wrap-button'>
             <Button
               title='Registrar'
-              type='submit'
+              onClick={onRegister}
+              // onClick={prueba}
             />
           </div>
-        </form>
+        {/* </form> */}
       </div>
+      {dataAlert.show &&
+        <Alert
+            type={dataAlert.type}
+            title={dataAlert.title}
+            message={dataAlert.message}
+        />
+      }
     </div>
   )
 }

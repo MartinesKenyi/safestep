@@ -1,8 +1,11 @@
 import React, { useContext, useState } from 'react'
+import { Input } from '../global-components/input/input'
+
 import { useForm } from '../hooks/useForm';
 import { DelictivosContext } from '../context/auth/delictivo-context';
 import { AuthContext } from '../context/auth/auth-context';
 import { useRoles } from '../hooks/usedate';
+import { Alert } from '../global-components/alert/alert';
 
 interface InterfaceForm {
     modality: '',
@@ -17,22 +20,35 @@ const classes = {
     wrap: 'information__wrap',
 }
 
+interface alertProps {
+    type: 'success' | 'danger' | 'info', 
+    message?: string,
+    title: string,
+    show: boolean
+}
+
 export const DelictivoView = () => {
 
     const { user: userData } = useContext(AuthContext);
     const { registerDelictivo } = useContext(DelictivosContext);
     const { roles } = useRoles();
-    // const [isEdit, setIsEdit] = useState(true);
-    const [tempUri, setTempUri] = useState<string | any>();
+    const [isEdit, setIsEdit] = useState(false);
+    const [tempUri, setTempUri] = useState<string | any>(null);
     // const [dataImage, setDataImage] = useState<string | any>();
-
-
-    const [values, handleInputChange] = useForm({
+    const [dataAlert, setDataAlert] = useState<alertProps>({
+        type: 'success' ,
+        message: '',
         title: '',
-        description: '',
+        show: false
     });
 
-    const { title, description } = values;
+    const [ values, handleInputChange, reset ] = useForm({
+        title: '',
+        description: '',
+        url: null
+    });
+
+    const { title, description, url } = values;
 
     const handlePictureClick = () => {
         const input = document.querySelector('#fileSelector') as HTMLInputElement | null;
@@ -48,6 +64,8 @@ export const DelictivoView = () => {
 
         if (fileName) {
             setTempUri(fileName)
+            const objectURL = URL.createObjectURL(fileName)
+            handleInputChange({target:{name:'url',value:objectURL}})
         } else {
             console.log('no se recibe el archivo')
         }
@@ -55,15 +73,19 @@ export const DelictivoView = () => {
     }
 
     const onPublish = async () => {
-        // setIsEdit(false);
-        
-        const viewpermise = roles.filter(({ name }) => name !== "CIUDADANO_ROLE").map(rol => rol.id);
+
+        if( title.length < 5 ) {
+            return alert('danger', 'title', 'El título es obligatorio')
+        }
+
+        setIsEdit(true);
+
+        const viewpermise = roles.map(rol => rol.id);
 
         const resp: any = await registerDelictivo(
             tempUri,
             {
                 user: userData?.uid || '',
-                modality: null,
                 latitude: 0,
                 longitude: 0,
                 viewpermise: JSON.stringify(viewpermise),
@@ -73,19 +95,53 @@ export const DelictivoView = () => {
         );
 
         if (resp.ok) {
-            // setIsEdit(true);
+            setIsEdit(false);
             console.log(resp)
             // TODO: de evniar un mensaje que se guardó
+            alert('success','Guardado', 'Se guardó satisfactoriamente')
             // TODO: limpiar el formulario
+            reset();
+            setTempUri(null)
         } else {
-            // setIsEdit(true);
-            // TODO: enviar el mensaje erroneo
+            setIsEdit(true);
             console.log(resp)
+            // TODO: enviar el mensaje erroneo
+            alert('danger','Formulario','No se guardó')
         }
     }
+
+    const alert = (type: 'success' | 'danger' | 'info', title: string, message: string) => {
+        setDataAlert({
+            type,
+            title,
+            message,
+            show: true
+        })
+
+        setTimeout(() => {
+            setDataAlert({
+                type: 'success',
+                title: '',
+                message: '',
+                show: false
+            })
+        }, 2500)
+    }
+    // const Prueba = () => {
+    //     console.log('hello')
+    //     console.log('rueba')
+
+    //     // if( title.length < 5 ) {
+    //     //     console.log('llega')
+    //     //     return alert('hpls', 'doal')
+    //     // }
+    //     reset();
+    // }
+
     return (
         <div className={classes.main}>
             <div className={classes.container}>
+
                 <h2> Registro de informacion delictivo </h2>
                 <input
                     type="text"
@@ -93,6 +149,7 @@ export const DelictivoView = () => {
                     placeholder='Título'
                     value={title}
                     onChange={handleInputChange}
+                    required
                 />
                 <textarea
                     // className='information__text-area'
@@ -100,10 +157,13 @@ export const DelictivoView = () => {
                     name="description"
                     value={description}
                     onChange={handleInputChange}
+                    disabled={isEdit}
+                    required
                 >
                 </textarea>
                 <div className='btn__wrap-notes'>
                     <button
+                        disabled={false}
                         className="btn__notes"
                         onClick={handlePictureClick}
                     >
@@ -114,11 +174,11 @@ export const DelictivoView = () => {
 
                 <div className='information__control-img'>
                     <img
-                        src={"https://gestion.pe/resizer/Xd1pTUYOQtjW_diABxFJDMVG0ig=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/SGK2OFHS3VBUJEURBQU4AOGM4E.jpeg"}
-                        alt="places" />
+                        src={url ? url : 'https://www.ceciliagimeno.cl/img/imgs/imagenload.png'}
+                        alt="imagen" />
                 </div>
 
-                <input
+                <Input
                     id="fileSelector"
                     type="file"  //nos permite para buscar un archivo 
                     name="file"
@@ -128,31 +188,23 @@ export const DelictivoView = () => {
 
                 <div className='information__control-btn'>
                     <button
+                        disabled={false}
                         title='Compartir'
-                        // className='information__button'
                         onClick={onPublish}
+                        // onClick={Prueba}
                     >
                         Publicar
                     </button>
                 </div>
 
             </div>
-
-            <div className='alerts'>
-                <div className='alerts__content'>
-                    {/* <i className=" check fa-light fa-check"></i> */}
-                    <div className='message'>
-                        <span className='text1'>Save</span>
-                        <span className='text2'> Your changes has been</span>
-                    </div>
-                    <i className=" close fa-light fa-x"></i>
-
-                    <div className='progress'></div>
-                </div>
-
-            </div>
+            {dataAlert.show &&
+                <Alert
+                    type={dataAlert.type}
+                    title={dataAlert.title}
+                    message={dataAlert.message}
+                />
+            }
         </div>
     )
 }
- 
-// safestep-app cloudy

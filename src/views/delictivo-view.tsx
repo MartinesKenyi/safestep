@@ -7,12 +7,12 @@ import { AuthContext } from '../context/auth/auth-context';
 import { useRoles } from '../hooks/usedate';
 import { Alert } from '../global-components/alert/alert';
 
-interface InterfaceForm {
-    modality: '',
-    title: '',
-    description: '',
-    delictivo: '',
-}
+// interface InterfaceForm {
+//     modality: '',
+//     title: '',
+//     description: '',
+//     delictivo: '',
+// }
 
 const classes = {
     main: 'information',
@@ -127,21 +127,10 @@ export const DelictivoView = () => {
             })
         }, 2500)
     }
-    // const Prueba = () => {
-    //     console.log('hello')
-    //     console.log('rueba')
-
-    //     // if( title.length < 5 ) {
-    //     //     console.log('llega')
-    //     //     return alert('hpls', 'doal')
-    //     // }
-    //     reset();
-    // }
 
     return (
         <div className={classes.main}>
             <div className={classes.container}>
-
                 <h2> Registro de informacion delictivo </h2>
                 <input
                     type="text"
@@ -152,7 +141,6 @@ export const DelictivoView = () => {
                     required
                 />
                 <textarea
-                    // className='information__text-area'
                     placeholder='Descripción...'
                     name="description"
                     value={description}

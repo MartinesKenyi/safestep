@@ -1,7 +1,7 @@
-import React, { createContext, useEffect, useState, useReducer } from 'react';
+import React, { createContext, useEffect, useReducer } from 'react';
 
 import axiosApi, { axiosConToken, fetchConToken } from '../../helpers/axios';
-import { Delictivo, DelictivoResponse, DelictivosResponse, Report } from '../../interfaces/delictivo-interfaces';
+import { Delictivo, DelictivosResponse } from '../../interfaces/delictivo-interfaces';
 import { delictivoReducer } from './delictivo-reducer';
 
 type ProductsContextProps = {
@@ -25,7 +25,7 @@ export const DelictivosContext = createContext({} as ProductsContextProps);
 
 export const DelictivosProvider = ({ children }: any) => {
 
-    const [delictivos, setDelictivos] = useState<Delictivo[]>([]);
+    // const [delictivos, setDelictivos] = useState<Delictivo[]>([]);
     const [state, dispatch] = useReducer(delictivoReducer, delictivoInitialState);
 
     useEffect(() => {
@@ -78,84 +78,60 @@ export const DelictivosProvider = ({ children }: any) => {
 
     }
 
-    const startUploading = ( uri: any ) => {
+    // const startUploading = ( uri: any ) => {
 
-    }
-    const registerReport = async (report: Report): Promise<any> => {
-        const resp: any = await axiosConToken('/report', report, 'POST');
-        if (resp.ok) {
-            const newDelictivo = state.delictivos.find(delictivo => delictivo.id === resp.report.delictivo)
-            if (newDelictivo) {
-                dispatch({
-                    type: 'updateDelictivo',
-                    payload: { id: newDelictivo.id || '', delictivo: { ...newDelictivo, reports: [resp.report] } }
-                });
-                return resp
-            } else {
-                dispatch({
-                    type: 'addError',
-                    payload: 'no se encontró el delictivo para actualizar'
-                });
-                return false
-            }
-        } else {
-            dispatch({
-                type: 'addError',
-                payload: JSON.stringify(resp)
-            });
-            return false
-        }
-    }
+    // }
+    // const registerReport = async (report: Report): Promise<any> => {
+    //     const resp: any = await axiosConToken('/report', report, 'POST');
+    //     if (resp.ok) {
+    //         const newDelictivo = state.delictivos.find(delictivo => delictivo.id === resp.report.delictivo)
+    //         if (newDelictivo) {
+    //             dispatch({
+    //                 type: 'updateDelictivo',
+    //                 payload: { id: newDelictivo.id || '', delictivo: { ...newDelictivo, reports: [resp.report] } }
+    //             });
+    //             return resp
+    //         } else {
+    //             dispatch({
+    //                 type: 'addError',
+    //                 payload: 'no se encontró el delictivo para actualizar'
+    //             });
+    //             return false
+    //         }
+    //     } else {
+    //         dispatch({
+    //             type: 'addError',
+    //             payload: JSON.stringify(resp)
+    //         });
+    //         return false
+    //     }
+    // }
 
-    const updateReport = async (updReport: any, id: string) => {
-        const resp: any = await axiosConToken(`/report/${id}`, updReport, 'PUT');
-        if (resp.ok) {
-            const newDelictivo = state.delictivos.find(delictivo => delictivo.id === resp.report.delictivo);
-            if (newDelictivo) {
-                dispatch({
-                    type: 'updateDelictivo',
-                    payload: { id: newDelictivo.id || '', delictivo: { ...newDelictivo, approve: updReport.approve, reports: [resp.report] } }
-                });
-                return resp
-            } else {
-                dispatch({
-                    type: 'addError',
-                    payload: 'no se encontró el delictivo para actualizar'
-                });
-                return false
-            }
-        } else {
-            dispatch({
-                type: 'addError',
-                payload: JSON.stringify(resp)
-            });
-            return false
-        }
-    }
+   
 
-    const updateDelictivo = async (delicitivo: Delictivo) => {
-        // try {
-        //     // const resp: Delictivo = await axiosConToken(`/delictivo/${delicitivo.id}`, delicitivo, 'POST');
+    // const updateDelictivo = async (delicitivo: Delictivo) => {
+    //     // try {
+    //     //     // const resp: Delictivo = await axiosConToken(`/delictivo/${delicitivo.id}`, delicitivo, 'POST');
 
-        //     // if (resp.ok) {
-        //     //     dispatch({
-        //     //         type: 'updateDelictivo',
-        //     //         payload: { id: delicitivo.id || '', delictivo: resp }
-        //     //     });
-        //     // } else {
-        //     //     dispatch({
-        //     //         type: 'addError',
-        //     //         payload: JSON.stringify(resp)
-        //     //     });
-        //     }
-        // } catch (error: any) {
-        //     dispatch({
-        //         type: 'addError',
-        //         payload: error?.response?.data?.errors[0].msg || 'Revise la información'
-        //     });
+    //     //     // if (resp.ok) {
+    //     //     //     dispatch({
+    //     //     //         type: 'updateDelictivo',
+    //     //     //         payload: { id: delicitivo.id || '', delictivo: resp }
+    //     //     //     });
+    //     //     // } else {
+    //     //     //     dispatch({
+    //     //     //         type: 'addError',
+    //     //     //         payload: JSON.stringify(resp)
+    //     //     //     });
+    //     //     }
+    //     // } catch (error: any) {
+    //     //     dispatch({
+    //     //         type: 'addError',
+    //     //         payload: error?.response?.data?.errors[0].msg || 'Revise la información'
+    //     //     });
 
-        // }
-    }
+    //     // }
+    // }
 
     const loadDelictivoById = async (id: string): Promise<Delictivo> => {
         const resp: Delictivo = await axiosConToken(`/delictivo/${id}`);

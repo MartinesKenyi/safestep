@@ -9,7 +9,6 @@ interface Props {
 export const ValidateAccount = ({ children }: Props) => {
 
     const { status } = useContext(AuthContext);
-    console.log(status)
     if (status === 'checking') {
         return <>Validando....</>
     }

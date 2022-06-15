@@ -1,11 +1,10 @@
-import React, { useContext,useState } from 'react';
+import React, { useContext,useEffect,useState } from 'react';
 import { AuthContext } from '../context/auth/auth-context';
 
 import { Button } from '../global-components/button/button';
 import { Input } from '../global-components/input/input';
 import { useForm } from '../hooks/useForm';
 import { Alert } from '../global-components/alert/alert';
-import { Navigate } from 'react-router-dom';
 
 const classes = {
     main: 'login',
@@ -25,7 +24,7 @@ interface alertProps {
 
 export const LoginView = () => {
 
-    const { signIn } = useContext(AuthContext);
+    const { signIn, errorMessage, dispatch } = useContext(AuthContext);
     const [dataAlert, setDataAlert] = useState<alertProps>({
         type: 'success',
         message: '',
@@ -40,6 +39,17 @@ export const LoginView = () => {
     });
 
     const { user, password } = login;
+
+    useEffect(() => {
+      if (errorMessage && errorMessage?.length > 0) {
+        alert('danger','Contraseña',errorMessage);
+
+        dispatch({
+            type: 'removeError'
+        })
+      }
+    }, [errorMessage,dispatch])
+    
     
     const handleLogin = async(e: any) => {
         e.preventDefault();
@@ -70,8 +80,6 @@ export const LoginView = () => {
 
     return (
         <div className={classes.main}>
-            <h4 className={classes.iconLogo}>Cube</h4>
-
             <div className={classes.container}>
                 <div className={classes.wrap}>
                     <h3>Inicia sesión</h3>
@@ -80,7 +88,6 @@ export const LoginView = () => {
                             type='text'
                             name='user'
                             placeholder='Ingrese su cuenta corporativa'
-                            // autoComplete='off'
                             value={user}
                             onChange={setLogin}
                             required
@@ -93,15 +100,10 @@ export const LoginView = () => {
                             placeholder='Ingrese su contraseña'
                             required
                         />
-                        {/* {
-                            msgError && (
-                                <p className="msg__error"> {msgError} </p>
-                            )
-                        } */}
+                        
                         <Button
                             title='Iniciar sesión'
                             type='submit'
-                            // onClick={handleLogin}
                         />
 
                     </form>

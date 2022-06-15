@@ -6,7 +6,6 @@ import { useRoles, useSectors } from '../hooks/usedate';
 import { AuthContext } from '../context/auth/auth-context';
 import { ComboBox } from '../global-components/select/select';
 import { Alert } from '../global-components/alert/alert';
-import { createJSDocCallbackTag } from 'typescript';
 
 const classes = {
   main: 'register',
@@ -25,7 +24,7 @@ interface alertProps {
 
 export const RegisterView = () => {
 
-  const { signUp, errorMessage, dispatch } = useContext(AuthContext);
+  const { signUp, errorMessage } = useContext(AuthContext);
   const { roles } = useRoles();
   const { sectors } = useSectors();
 
@@ -48,7 +47,6 @@ export const RegisterView = () => {
   const { user, role, password, name, confirmPassword, sector } = values;
 
   useEffect(() => {
-    if (errorMessage?.length === 0) return;
   }, [errorMessage, values]);
 
   const onRegister = async (e: any) => {
@@ -56,13 +54,13 @@ export const RegisterView = () => {
 
     if (user.trim().length < 4
       || name.trim().length < 4) {
-      return alert('danger','name','Debe contener más de 5 caracteres el usuario ');
+      return alert('danger','Nombre','Debe contener más de 5 caracteres el usuario ');
     }
     if (password.trim().length < 4) {
-      return alert('danger','contraseña','Debe tener más 6 caracteres');
+      return alert('danger','Contraseña','Debe tener más 6 caracteres');
     }
     if (confirmPassword.trim() !== password.trim()) {
-      return alert('danger','confirmar contraseña','Deben ser iguales');
+      return alert('danger','Confirmar contraseña','Deben ser iguales');
     }
 
     const resp: any = await signUp({
@@ -116,7 +114,6 @@ export const RegisterView = () => {
             title='Nombre de usuario'
             value={name}
             onChange={handleInputChange}
-            required
           />
 
           <Input
@@ -127,7 +124,6 @@ export const RegisterView = () => {
             title='Cuenta de usuario'
             value={user}
             onChange={handleInputChange}
-            required
           />
 
           <ComboBox
@@ -157,7 +153,6 @@ export const RegisterView = () => {
             type='password'
             value={password}
             onChange={handleInputChange}
-            required
           />
 
           <Input
@@ -168,18 +163,11 @@ export const RegisterView = () => {
             title='Confirmar contraseña'
             value={confirmPassword}
             onChange={handleInputChange}
-            required
           />
-          {/* {
-              msgError && (
-                  <p className="msg__error"> {msgError} </p>
-              )
-          } */}
           <div className='register__wrap-button'>
             <Button
               title='Registrar'
               onClick={onRegister}
-              // onClick={prueba}
             />
           </div>
         {/* </form> */}

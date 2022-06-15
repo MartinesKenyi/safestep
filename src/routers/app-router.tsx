@@ -4,6 +4,7 @@ import {
   Routes,
   Navigate
 } from 'react-router-dom';
+// import { NavBar } from '../components/uid/navbar';
 
 import { DashboardView } from '../views/dashboard-view';
 // import { LoginView } from '../views/login-view';
@@ -13,6 +14,8 @@ export const AppRouter = () => {
 
   return (
     <>
+      {/* <NavBar /> */}
+
       <Router>
         <Routes>
 

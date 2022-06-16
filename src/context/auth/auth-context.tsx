@@ -3,7 +3,6 @@ import axios, { axiosConToken } from '../../helpers/axios';
 
 import { User, LoginData, LoginResponse, RegisterUser } from '../../interfaces/app-interfacess';
 import { authReducer, AuthState } from './auth-reducer';
-// import { types } from '../../types/types';
 
 type AuthContextProps = {
     errorMessage: string | null;
@@ -126,7 +125,6 @@ export const AuthProvider = ({ children }: any) => {
             logOut,
             removeError,
             dispatch,
-            // onRegisterUser
         }}>
             {children}
         </AuthContext.Provider>

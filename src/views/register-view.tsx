@@ -27,6 +27,7 @@ export const RegisterView = () => {
   const { signUp, errorMessage } = useContext(AuthContext);
   const { roles } = useRoles();
   const { sectors } = useSectors();
+  const [isEdit, setIsEdit] = useState(false);
 
   const [dataAlert, setDataAlert] = useState<alertProps>({
     type: 'success',
@@ -50,7 +51,6 @@ export const RegisterView = () => {
   }, [errorMessage, values]);
 
   const onRegister = async (e: any) => {
-    // e.preventDefault();
 
     if (user.trim().length < 4
       || name.trim().length < 4) {
@@ -62,6 +62,7 @@ export const RegisterView = () => {
     if (confirmPassword.trim() !== password.trim()) {
       return alert('danger','Confirmar contraseña','Deben ser iguales');
     }
+    setIsEdit(true);
 
     const resp: any = await signUp({
       name: name.toLowerCase(),
@@ -73,9 +74,11 @@ export const RegisterView = () => {
 
     if (resp) {
       alert('success','Guardado', 'Se registró el usuario')
-      reset()
+      reset();
+      setIsEdit(false);
     } else {
       alert('danger','Usuario','Error al registrar')
+      setIsEdit(false);
     }
   }
 
@@ -112,6 +115,7 @@ export const RegisterView = () => {
             className='register__input'
             autoComplete='off'
             title='Nombre de usuario'
+            disabled={isEdit}
             value={name}
             onChange={handleInputChange}
           />
@@ -122,6 +126,7 @@ export const RegisterView = () => {
             className='register__input'
             placeholder='usuario'
             title='Cuenta de usuario'
+            disabled={isEdit}
             value={user}
             onChange={handleInputChange}
           />
@@ -131,6 +136,7 @@ export const RegisterView = () => {
             className='combobox'
             name='role'
             data={roles}
+            disabled={isEdit}
             value={role}
             onChange={handleInputChange}
           />
@@ -141,6 +147,7 @@ export const RegisterView = () => {
             className='combobox'
             data={sectors}
             required={true}
+            disabled={isEdit}
             value={sector}
             onChange={handleInputChange}
           />
@@ -150,6 +157,7 @@ export const RegisterView = () => {
             placeholder='Ingrese su contraseña'
             className='register__input'
             title='Contraseña'
+            disabled={isEdit}
             type='password'
             value={password}
             onChange={handleInputChange}
@@ -161,12 +169,15 @@ export const RegisterView = () => {
             className='register__input'
             type='password'
             title='Confirmar contraseña'
+            disabled={isEdit}
             value={confirmPassword}
             onChange={handleInputChange}
           />
           <div className='register__wrap-button'>
             <Button
               title='Registrar'
+              disabled={isEdit}
+              className={`${isEdit ? 'disabled' : ''}`}
               onClick={onRegister}
             />
           </div>

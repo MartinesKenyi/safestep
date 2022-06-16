@@ -2,7 +2,7 @@ import React, { ButtonHTMLAttributes } from 'react'
 
 const classes = {
     main: 'button',
-    box: 'button__box'
+    box: 'button__box',
 }
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -11,11 +11,12 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = ({
     title,
+    className,
     ...rest
 }: Props) => {
   return (
     <div className={classes.main}>
-        <button className={classes.box} {...rest}>
+        <button className={` ${classes.box} ${className}`} {...rest}>
             {title}
         </button>
     </div>

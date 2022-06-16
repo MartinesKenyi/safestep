@@ -6,14 +6,10 @@ import { delictivoReducer } from './delictivo-reducer';
 
 type ProductsContextProps = {
     delictivos: Delictivo[];
-    // loadDelictivos: () => Promise<void>;
     registerDelictivo: (tempUri: string | undefined, delictivo: Delictivo) => void;
-    // updateDelictivo: (delictivo: Delictivo) => Promise<void>;
     loadDelictivoById: (id: string) => Promise<Delictivo>;
     deleteDelictivo: (id: string) => Promise<Delictivo>;
     deleteImageDelectivo: (data: any, id: string) => Promise<void>; // TODO: cambiar ANY
-    // registerReport: (report: Report) => void;
-    // updateReport: (updReport: any, id: string) => void;
 }
 
 const delictivoInitialState = {
@@ -109,30 +105,6 @@ export const DelictivosProvider = ({ children }: any) => {
 
    
 
-    // const updateDelictivo = async (delicitivo: Delictivo) => {
-    //     // try {
-    //     //     // const resp: Delictivo = await axiosConToken(`/delictivo/${delicitivo.id}`, delicitivo, 'POST');
-
-    //     //     // if (resp.ok) {
-    //     //     //     dispatch({
-    //     //     //         type: 'updateDelictivo',
-    //     //     //         payload: { id: delicitivo.id || '', delictivo: resp }
-    //     //     //     });
-    //     //     // } else {
-    //     //     //     dispatch({
-    //     //     //         type: 'addError',
-    //     //     //         payload: JSON.stringify(resp)
-    //     //     //     });
-    //     //     }
-    //     // } catch (error: any) {
-    //     //     dispatch({
-    //     //         type: 'addError',
-    //     //         payload: error?.response?.data?.errors[0].msg || 'Revise la información'
-    //     //     });
-
-    //     // }
-    // }
-
     const loadDelictivoById = async (id: string): Promise<Delictivo> => {
         const resp: Delictivo = await axiosConToken(`/delictivo/${id}`);
         return resp;
@@ -150,13 +122,9 @@ export const DelictivosProvider = ({ children }: any) => {
     return (
         <DelictivosContext.Provider value={{
             ...state,
-            // loadDelictivos,
             registerDelictivo,
-            // updateDelictivo,
             loadDelictivoById,
             deleteDelictivo,
-            // registerReport,
-            // updateReport,
             deleteImageDelectivo,
         }}>
             {children}

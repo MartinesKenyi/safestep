@@ -6,13 +6,7 @@ import { DelictivosContext } from '../context/auth/delictivo-context';
 import { AuthContext } from '../context/auth/auth-context';
 import { useRoles } from '../hooks/usedate';
 import { Alert } from '../global-components/alert/alert';
-
-// interface InterfaceForm {
-//     modality: '',
-//     title: '',
-//     description: '',
-//     delictivo: '',
-// }
+import { SocketContext } from '../context/auth/socket-Context';
 
 const classes = {
     main: 'information',
@@ -34,7 +28,7 @@ export const DelictivoView = () => {
     const { roles } = useRoles();
     const [isEdit, setIsEdit] = useState(false);
     const [tempUri, setTempUri] = useState<string | any>(null);
-    // const [dataImage, setDataImage] = useState<string | any>();
+    const { socket } = useContext(SocketContext);
     const [dataAlert, setDataAlert] = useState<alertProps>({
         type: 'success' ,
         message: '',
@@ -80,7 +74,9 @@ export const DelictivoView = () => {
 
         setIsEdit(true);
 
-        const viewpermise = roles.map(rol => rol.id);
+        const viewpermise = roles.filter(({name}) => name === "CIUDADANO_ROLE").map(rol => rol.id);
+
+        console.log(viewpermise)
 
         const resp: any = await registerDelictivo(
             tempUri,
@@ -96,11 +92,11 @@ export const DelictivoView = () => {
 
         if (resp.ok) {
             setIsEdit(false);
-            console.log(resp)
             // TODO: de evniar un mensaje que se guardó
             alert('success','Guardado', 'Se guardó satisfactoriamente')
             // TODO: limpiar el formulario
             reset();
+            socket?.emit('send-new-delictivo-all', {delictivo: resp?.delictivo || {}})
             setTempUri(null)
         } else {
             setIsEdit(true);
@@ -138,6 +134,7 @@ export const DelictivoView = () => {
                     placeholder='Título'
                     value={title}
                     onChange={handleInputChange}
+                    disabled={isEdit}
                     required
                 />
                 <textarea
@@ -151,8 +148,8 @@ export const DelictivoView = () => {
                 </textarea>
                 <div className='btn__wrap-notes'>
                     <button
-                        disabled={false}
-                        className="btn__notes"
+                        disabled={isEdit}
+                        className={`btn__notes ${isEdit ? 'disabled' : ''}`}
                         onClick={handlePictureClick}
                     >
                         Picture
@@ -176,10 +173,10 @@ export const DelictivoView = () => {
 
                 <div className='information__control-btn'>
                     <button
-                        disabled={false}
+                         disabled={isEdit}
                         title='Compartir'
+                        className={`btn__notes ${isEdit ? 'disabled' : ''}`}
                         onClick={onPublish}
-                        // onClick={Prueba}
                     >
                         Publicar
                     </button>

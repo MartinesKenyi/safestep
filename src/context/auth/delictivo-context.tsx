@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useReducer } from 'react';
 
-import axiosApi, { axiosConToken, fetchConToken } from '../../helpers/axios';
+import { axiosConToken, fetchConToken } from '../../helpers/axios';
 import { Delictivo, DelictivosResponse } from '../../interfaces/delictivo-interfaces';
 import { delictivoReducer } from './delictivo-reducer';
 

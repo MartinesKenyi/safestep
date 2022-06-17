@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { axiosConToken } from '../helpers/axios';
-import { SectorResponse, Sector, Role, RoleResponse } from '../interfaces/app-interfacess';
+import { SectorResponse, Sector, Role, RoleResponse, Crime, CrimeResponse } from '../interfaces/app-interfacess';
+import { Delictivo, DelictivosResponse } from "../interfaces/delictivo-interfaces";
 
 
 export const useSectors = () => {
@@ -31,14 +32,6 @@ export const useRoles = () => {
         const resp: RoleResponse = await axiosConToken('/role');
 
         if (!resp.ok) return setIsLoading(false);
-
-        // const ok = resp.roles.find(r => r.name === 'CIUDADANO_ROLE');
-        // if (!ok) {
-        //     const newRole = await axiosConToken('/role/no-admin', { name: 'CIUDADANO_ROLE' }, 'POST');
-            
-        //     if (!newRole.ok) return setIsLoading(false);
-        //     return setRoles([newRole.role]);
-        // }
         setRoles(resp.roles);    
         setIsLoading(false);
     }
@@ -48,19 +41,36 @@ export const useRoles = () => {
     }
 }
 
-// export const useCrimes = () => {
-//     const [isLoadingCrimes, setIsLoading] = useState(true)
-//     const [crimes, setCrimes] = useState<Crime[]>([]);
-//     useEffect(() => {
-//         getSectors();
-//     }, [])
-//     const getSectors = async () => {
-//         const resp: CrimeResponse = await axiosConToken('/crime');
-//         setCrimes(resp.crimes);
-//         setIsLoading(false);
-//     }
-//     return {
-//         isLoadingCrimes,
-//         crimes
-//     }
-// }
+export const useCrimes = () => {
+    const [isLoadingCrimes, setIsLoading] = useState(true)
+    const [crimes, setCrimes] = useState<Crime[]>([]);
+    useEffect(() => {
+        getSectors();
+    }, [])
+    const getSectors = async () => {
+        const resp: CrimeResponse = await axiosConToken('/crime');
+        setCrimes(resp.crimes);
+        setIsLoading(false);
+    }
+    return {
+        isLoadingCrimes,
+        crimes
+    }
+}
+
+export const useDelictivos = () => {
+    const [isLoadingDelictivos, setIsLoading] = useState(true)
+    const [delictivos, setDelictivos] = useState<Delictivo[]>([]);
+    useEffect(() => {
+        getSectors();
+    }, [])
+    const getSectors = async () => {
+        const resp: DelictivosResponse = await axiosConToken('/delictivo');
+        setDelictivos(resp.delictivos);
+        setIsLoading(false);
+    }
+    return {
+        isLoadingDelictivos,
+        delictivos
+    }
+}

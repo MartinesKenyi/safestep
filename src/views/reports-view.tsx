@@ -1,74 +1,110 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { ExportCSV } from "../excel/export-to-csv";
+import { converDate } from '../helpers/moments';
 import { useDelictivos } from '../hooks/usedate';
 
 const classes = {
   main: 'reports',
   buttonExport: 'reports__btn-export',
-  wrapTable: 'reports__wrap-table'
+  wrapTable: 'reports__wrap-table',
+  table: 'reports__table',
+  head: 'reports__head',
+  th: 'reports__head__th',
+  body: 'reports__body',
+  bodyTr: 'reports__body__tr',
+  bodyTd: 'reports__body__td',
+}
+
+interface objReport {
+  fecha: string,
+  tipo: string,
+  modalidad: string,
+  usuario: string,
+  sector: string,
+  titulo: string,
+  descripcion: string,
+}
+const initialObjReport = {
+  fecha: '',
+  tipo: '',
+  modalidad: '',
+  usuario: '',
+  sector: '',
+  titulo: '',
+  descripcion: '',
 }
 
 export const ReportsView = () => {
 
-  const data = [
-    {
-      name: "Johson",
-      amount: 30000,
-      sex: "M",
-      is_married: true
-    },
-    {
-      name: "Monika",
-      amount: 355000,
-      sex: "F",
-      is_married: false
-    },
-    {
-      name: "John",
-      amount: 250000,
-      sex: "M",
-      is_married: false
-    },
-    {
-      name: "Josef",
-      amount: 450500,
-      sex: "M",
-      is_married: true
-    }
-  ];
+  const { delictivos, isLoadingDelictivos } = useDelictivos();
+  const [dataToReport, setDataToReport] = useState<any>([]);
+  const [headToReport, setHeadToReport] = useState<string[]>([]);
 
-  const { delictivos, isLoadingDelictivos} = useDelictivos()
+  const buildReport = useCallback(() => {
+    delictivos.forEach((delictivo: any) => {
+      let objectReport: objReport = initialObjReport
+
+      objectReport.fecha = converDate(delictivo.createdAt);
+      objectReport.tipo = delictivo?.modality?.crime || '';
+      objectReport.modalidad = delictivo?.modality?.name || '';
+      objectReport.usuario = delictivo?.user?.name || '';
+      objectReport.sector = delictivo?.user?.sector || '';
+      objectReport.titulo = delictivo?.title || '';
+      objectReport.descripcion = delictivo?.description || '';
+      // objectReport.descripcion = delictivo?.description || '';
+
+      setDataToReport((prev: any) => [...prev, objectReport]);
+    })
+
+  }, [delictivos])
+
+  useEffect(() => {
+    buildReport()
+  }, [buildReport])
+
+  useEffect(() => {
+    for (let value of Object.keys(initialObjReport)) {
+      setHeadToReport((prev: any) => [...prev, value])
+    }
+  }, []);
 
   if (isLoadingDelictivos) {
     return <div> cargando data... </div>
   }
 
-  console.log(delictivos)
-
   return (
     <div className={classes.main}>
       <div className={classes.buttonExport}>
-        <ExportCSV csvData={delictivos} fileName="text-excel-doc" />
+        <ExportCSV csvData={dataToReport} fileName="text-excel-doc" />
       </div>
 
-      <div className={classes.main}>
-        <table >
-          <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Age</th>
-          </tr>
-          <tr>
-            <td>Edison</td>
-            <td>Padilla</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Alberto</td>
-            <td>Lopez</td>
-            <td>94</td>
-          </tr>
+      <div className={classes.wrapTable}>
+        <table className={classes.table}>
+          <thead className={classes.head}>
+            <tr >
+              {
+                headToReport.map((head: string, idx: number) => (
+                  <th key={`${idx}-${head}`} className={classes.th}>{head}</th>
+                ))
+              }
+            </tr>
+          </thead>
+          <tbody className={classes.body}>
+            {
+              dataToReport.map((objectReport: any, idx: number) => (
+                <tr key={`${idx}-${objectReport.modalidad}`} className={classes.bodyTr}>
+                  <td className={`${classes.bodyTd} date`}>{objectReport.fecha}</td>
+                  <td className={classes.bodyTd}>{objectReport.tipo}</td>
+                  <td className={classes.bodyTd}>{objectReport.modalidad}</td>
+                  <td className={classes.bodyTd}>{objectReport.usuario}</td>
+                  <td className={classes.bodyTd}>{objectReport.sector}</td>
+                  <td className={classes.bodyTd}>{objectReport.titulo}</td>
+                  <td className={classes.bodyTd}>{objectReport.descripcion}</td>
+                </tr>
+              ))
+            }
+          </tbody>
         </table>
       </div>
 

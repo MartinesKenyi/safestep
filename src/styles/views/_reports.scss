@@ -1,10 +1,68 @@
-
 .reports {
-    
     &__btn-export {
         text-align: center;
         width: 100%;
         padding: 10px;
         margin-bottom: 50px;
+    }
+
+    &__wrap-table {
+        margin: auto;
+        padding: 0 15px;
+
+        @media (max-width: $mobile) {
+            overflow: auto;
+            white-space: nowrap;
+            max-width: 500px;
+        }
+
+        @media (min-width: $tablet) {
+            max-width: 90%;
+            padding: 0 15px;
+        }
+
+        @media (min-width: $desktop) {
+            max-width: 70%;
+        }
+    }
+
+    &__table {
+        background: #F1F1F1;
+        padding: 10px 5px;
+        border-radius: 5px;
+        box-shadow: 0px 5px 20px 0px rgb(0 0 0 / 13%);
+        border: 1px solid #DBE2E2;
+    }
+
+    &__head {
+
+        // background: rosybrown;
+        &__th {
+            background: #F5F5F5;
+            border: 2px solid #000;
+            padding: 5px;
+        }
+    }
+
+    &__body {
+        background: salmon;
+
+        &__tr {
+            cursor: pointer;
+            background: #FFFFFF;
+
+            &:hover {
+                background: #F8F8F8;
+            }
+        }
+
+        &__td {
+            border: 1px solid #000;
+            padding: 0px 5px;
+
+            &.date {
+                width: 100px;
+            }
+        }
     }
 }

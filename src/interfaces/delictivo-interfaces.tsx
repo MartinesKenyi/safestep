@@ -12,12 +12,12 @@ export interface DelictivoResponse {
 
 export interface Delictivo {
     user:        User | string;
-    modality?:    Modality | null;
+    modality?:    Modality | any |null;
     title:       string;
     description?: string;
     longitude?:   number;
     latitude?:    number;
-    multimedia?:  any[];
+    multimedia?:  string[];
     viewpermise?: string[] | string;
     views?:       any[];
     shared?:      any[];
@@ -33,16 +33,15 @@ export interface Delictivo {
 
 export interface Modality {
     _id:   string;
-    crime: string;
+    crime: string | any;
     name:  string;
 }
 
 export interface User {
     _id:    string;
     name:   string;
-    role:   string;
-    sector: string | null;
-    show:   boolean;
+    role:   string | any;
+    sector: string | any | null;
 }
 
 export interface Report {

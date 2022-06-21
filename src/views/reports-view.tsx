@@ -22,15 +22,17 @@ interface objReport {
   modalidad: string,
   usuario: string,
   sector: string,
+  rol: string,
   titulo: string,
   descripcion: string,
 }
-const initialObjReport = {
+const initialObjReport: objReport = {
   fecha: '',
   tipo: '',
   modalidad: '',
   usuario: '',
   sector: '',
+  rol: '',
   titulo: '',
   descripcion: '',
 }
@@ -38,24 +40,26 @@ const initialObjReport = {
 export const ReportsView = () => {
 
   const { delictivos, isLoadingDelictivos } = useDelictivos();
-  const [dataToReport, setDataToReport] = useState<any>([]);
+  const [dataToReport, setDataToReport] = useState<any[]>([]);
   const [headToReport, setHeadToReport] = useState<string[]>([]);
 
   const buildReport = useCallback(() => {
-    delictivos.forEach((delictivo: any) => {
-      let objectReport: objReport = initialObjReport
+    const arrayReport = delictivos.map((delictivo: any) => {
+      let objectReport: any = {}
 
       objectReport.fecha = converDate(delictivo.createdAt);
-      objectReport.tipo = delictivo?.modality?.crime || '';
+      objectReport.tipo = delictivo?.modality?.crime?.name || '';
       objectReport.modalidad = delictivo?.modality?.name || '';
       objectReport.usuario = delictivo?.user?.name || '';
-      objectReport.sector = delictivo?.user?.sector || '';
+      objectReport.sector = delictivo?.user?.sector?.name || '';
+      objectReport.rol = delictivo?.user?.role?.name || '';
       objectReport.titulo = delictivo?.title || '';
-      objectReport.descripcion = delictivo?.description || '';
+      // objectReport.descripcion = delictivo?.description || '';
       // objectReport.descripcion = delictivo?.description || '';
 
-      setDataToReport((prev: any) => [...prev, objectReport]);
+      return objectReport;
     })
+    setDataToReport(arrayReport);
 
   }, [delictivos])
 
@@ -93,12 +97,13 @@ export const ReportsView = () => {
           <tbody className={classes.body}>
             {
               dataToReport.map((objectReport: any, idx: number) => (
-                <tr key={`${idx}-${objectReport.modalidad}`} className={classes.bodyTr}>
+                <tr key={`${idx}-${objectReport.title}`} className={classes.bodyTr}>
                   <td className={`${classes.bodyTd} date`}>{objectReport.fecha}</td>
                   <td className={classes.bodyTd}>{objectReport.tipo}</td>
                   <td className={classes.bodyTd}>{objectReport.modalidad}</td>
                   <td className={classes.bodyTd}>{objectReport.usuario}</td>
                   <td className={classes.bodyTd}>{objectReport.sector}</td>
+                  <td className={classes.bodyTd}>{objectReport.rol}</td>
                   <td className={classes.bodyTd}>{objectReport.titulo}</td>
                   <td className={classes.bodyTd}>{objectReport.descripcion}</td>
                 </tr>

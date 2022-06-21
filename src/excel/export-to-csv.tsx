@@ -29,7 +29,7 @@ export const ExportCSV: React.FC<Props> = ({ csvData, fileName }) => {
       padding: '5px 10px',
       borderRadius: '5px',
     }}>
-      Export data
+      Exportar a Excel
     </button>
   );
 };

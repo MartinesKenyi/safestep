@@ -65,7 +65,7 @@ export const useDelictivos = () => {
         getSectors();
     }, [])
     const getSectors = async () => {
-        const resp: DelictivosResponse = await axiosConToken('/delictivo');
+        const resp: DelictivosResponse = await axiosConToken('/delictivo/reports');
         setDelictivos(resp.delictivos);
         setIsLoading(false);
     }

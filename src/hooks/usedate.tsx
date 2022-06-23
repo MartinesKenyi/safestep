@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
 import { axiosConToken } from '../helpers/axios';
 import { SectorResponse, Sector, Role, RoleResponse, Crime, CrimeResponse } from '../interfaces/app-interfacess';
-import { Delictivo, DelictivosResponse } from "../interfaces/delictivo-interfaces";
-
 
 export const useSectors = () => {
     const [isLoadingSector, setIsLoading] = useState(true)
@@ -55,22 +53,5 @@ export const useCrimes = () => {
     return {
         isLoadingCrimes,
         crimes
-    }
-}
-
-export const useDelictivos = () => {
-    const [isLoadingDelictivos, setIsLoading] = useState(true)
-    const [delictivos, setDelictivos] = useState<Delictivo[]>([]);
-    useEffect(() => {
-        getSectors();
-    }, [])
-    const getSectors = async () => {
-        const resp: DelictivosResponse = await axiosConToken('/delictivo/reports');
-        setDelictivos(resp.delictivos);
-        setIsLoading(false);
-    }
-    return {
-        isLoadingDelictivos,
-        delictivos
     }
 }

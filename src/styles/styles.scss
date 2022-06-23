@@ -1,16 +1,19 @@
 :root {
-    --color-background: #FCFCFC;
+    --color-background: #f8f8f8;
     --color-background-invert: #312F30;
     --color-texto: #000000;
     --color-texto-invert: #E4EBF1;
     --color-white-empresa: #312F30;
+    --color-input-background: #000;
+    --color-input-background-invert: #fcfcfc;
 }
 .dark-theme-variables {
     --color-background: #312F30;
-    --color-background-invert: #FCFCFC;
+    --color-background-invert: #f8f8f8;
     --color-texto: #E4EBF1;
     --color-texto-invert: #000000;
     --color-white-empresa: #FFEDE1;
+    --color-input-background: #fcfcfc;
 }
 html,
 body,
@@ -83,6 +86,7 @@ html {
 html,
 body {
     height: 100%;
+    background: var(--color-background);
 }
 
 a,
@@ -120,3 +124,4 @@ h6 {
 @import "./base/";
 @import "./global-components/";
 @import "./views/";
+@import "./components/";

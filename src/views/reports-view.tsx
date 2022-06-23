@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { DelictivosContext } from '../context/auth/delictivo-context';
 
 import { ExportCSV } from "../excel/export-to-csv";
 import { converDate } from '../helpers/moments';
-import { useDelictivos } from '../hooks/usedate';
 
 const classes = {
   main: 'reports',
@@ -39,7 +39,7 @@ const initialObjReport: objReport = {
 
 export const ReportsView = () => {
 
-  const { delictivos, isLoadingDelictivos } = useDelictivos();
+  const { delictivosReports: delictivos } = useContext(DelictivosContext);
   const [dataToReport, setDataToReport] = useState<any[]>([]);
   const [headToReport, setHeadToReport] = useState<string[]>([]);
 
@@ -72,10 +72,6 @@ export const ReportsView = () => {
       setHeadToReport((prev: any) => [...prev, value])
     }
   }, []);
-
-  if (isLoadingDelictivos) {
-    return <div> cargando data... </div>
-  }
 
   return (
     <div className={classes.main}>

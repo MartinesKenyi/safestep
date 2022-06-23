@@ -12,7 +12,7 @@ const classes = {
     user: 'nav__user'
 }
 export const NavBar = () => {
-    
+
     const { logOut } = useContext(AuthContext);
 
     const handleLogout = () => {
@@ -20,49 +20,56 @@ export const NavBar = () => {
     }
 
 
-  return (
-    <nav className={classes.main}>
-        <label form="check" className={classes.user}>
-            Welcome back!!
-        </label>
+    return (
+        <nav className={classes.main}>
+            <label form="check" className={classes.user}>
+                Welcome back!!
+            </label>
 
-        <div className={classes.container}>
-            <div className={classes.wrapLinks}>
-                <ul className={classes.links}>
-                    <li>
-                        <NavLink 
-                            to="/" 
-                            className={(isActive) =>isActive ? 'active': ''}> 
-                                <h4>Reportes</h4>
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink 
-                            to="/delictivo" 
-                            className={(isActive) =>isActive ? 'active': ''}> 
-                                <h4>Delictivo</h4>
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink 
-                            to="/registro" 
-                            className={(isActive) =>isActive ? 'active': ''}> 
-                                <h4>Registro</h4>
-                        </NavLink>
-                    </li>
-                </ul>
-            </div>
-            <button
-                className={classes.btnClose} 
-                onClick={handleLogout}
+            <div className={classes.container}>
+                <div className={classes.wrapLinks}>
+                    <ul className={classes.links}>
+                        <li>
+                            <NavLink
+                                to="/"
+                                className={({ isActive }) => isActive ? 'active' : ''}>
+                                <h4>Reporte general</h4>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/preventivo"
+                                className={({isActive}) => isActive ? 'active' : ''}>
+                                <h4>Preventivo</h4>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/risk-map"
+                                className={({isActive}) => isActive ? 'active' : ''}>
+                                <h4>Mapa de riesgo</h4>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/registro"
+                                className={({isActive}) => isActive ? 'active' : ''}>
+                                <h4>Registro de usuarios</h4>
+                            </NavLink>
+                        </li>
+                    </ul>
+                </div>
+                <button
+                    className={classes.btnClose}
+                    onClick={handleLogout}
                 >
-                Logout
-            </button> 
-        </div>
+                    Logout
+                </button>
+            </div>
 
-    </nav>
+        </nav>
 
-  );
+    );
 };
 
 

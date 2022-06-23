@@ -1,11 +1,10 @@
 .button {
     &__box {
-        color: #FCFCFC;
+        color: var(--color-texto-invert);
         font-family: $secondary-font;
         font-weight: 500;
-        background: #000;
+        background: var(--color-input-background);
         margin-top: 20px;
-        // margin-left: 40%;
         padding: 7px 10px;
         border-radius: 12px;
         border: 1px solid #000;
@@ -14,11 +13,21 @@
             background: transparent;
             color: #000;
         }
+
         &:disabled {
             opacity: 0.5;
-            background: #000;
-            color: #FCFCFC;
+            background: var(--color-input-background);
+            color: var(--color-texto-invert);
             cursor: initial;
+        }
+
+        &.inverted {
+            background: var(--color-input-background-invert);
+            color: var(--color-texto)
+        }
+
+        &.inverted:hover {
+            background: #F1F1F1;
         }
     }
 }

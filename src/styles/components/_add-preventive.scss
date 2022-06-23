@@ -1,0 +1,102 @@
+.add-preventive {
+    background: var(--color-background);
+    border-radius: 10px 0 0 10px;
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 1000px) {
+        animation: swipe-left 1.5s ease forwards;
+    }
+    &.close {
+        animation: swipe-rigth 1s ease forwards;
+    }
+
+    &__header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0 20px;
+    }
+    &__title {
+        font-size: 16px;
+        color: black;
+    }
+    &__close {
+        width: 28px;
+        padding: 10px 0;
+        cursor: pointer;
+        &::before, &::after {
+            content: "";
+            position: absolute;
+            width: 28px;
+            height: 4px;
+            border-radius: 5px;
+            background: var(--color-texto);
+        }
+        &::before {
+            transform: rotate(45deg)
+        }
+        &::after {
+            transform: rotate(-45deg)
+        }
+    }
+
+    &__container {
+        padding: 0 100px;
+        overflow-y: auto;
+        text-align: center;
+        &__title, &__textarea {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+        &__title {
+            height: 20px;
+        }
+        &__textarea {
+            height: 200px;
+        }
+        &__wrap-image {
+            display: flex;
+            justify-content: space-around;
+        }
+        &__image {
+            margin-top: 20px;
+            max-width: 400px;
+            max-height: 420px;
+        }
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #d6d6d6;
+            border-radius: 10px;
+        }
+        &::-webkit-scrollbar, &::-webkit-scrollbar-track {
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
+    }
+
+    &__operations{
+        display: flex;
+        padding: 0 30px;
+        justify-content: space-between;
+    }
+
+    @keyframes swipe-left {
+        0% { width: 0%; }
+        70% { width: calc(100% - 27%); }
+        100% { width: calc(100% - 30%); }
+    }
+    @keyframes swipe-rigth {
+        0% { width: calc(100% - 30%); }
+        70% { width: calc(100% - 27%); }
+        95% {  width: 10%; }
+        100% { width: calc(100% - 30%); }
+    }
+}

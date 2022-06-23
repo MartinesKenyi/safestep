@@ -1,16 +1,7 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Courier New', Courier, monospace;
-    color: #fff;
-}
+// background: rgb(219, 226, 226);s
 
 // 1°
-.information {
+.informations {
     display: flex;
     // position: relative;
     height: 100vh;
@@ -101,10 +92,4 @@ body {
     margin: 15px 0;
 }
 
-img {
-    width: 50%;
-    height: 70%;
-    transform: translate(50%, 1%);
-
-}
 

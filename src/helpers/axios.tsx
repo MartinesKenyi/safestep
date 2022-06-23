@@ -10,17 +10,6 @@ const baseURL = `${server}/api`;
 
 const axiosApi = axios.create({ baseURL });
 
-// axiosApi.interceptors.request.use(
-//     async(config: any) => {
-//         const token = await AsyncStorage.getItem('token');
-//         if ( token ) {
-//             config.headers['x-token'] = token;
-//         }
-//         console.log('axios token line 12', token, config)
-//         return config;
-//     }
-// );
-
 export const axiosConToken = async (endpoint: string, data: any = null, method = 'GET') => {
     const url = `${baseURL}${endpoint}`;
     const token = await localStorage.getItem('token') || '';

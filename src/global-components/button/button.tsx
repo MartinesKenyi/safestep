@@ -6,18 +6,26 @@ const classes = {
 }
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-    title: string
+    title: string,
+    inverted?: boolean,
+    children?: any
 }
 
 export const Button = ({
     title,
     className,
+    inverted= false,
+    children,
     ...rest
 }: Props) => {
   return (
     <div className={classes.main}>
-        <button className={` ${classes.box} ${className}`} {...rest}>
+        <button 
+            className={` ${classes.box} ${className} ${inverted ? 'inverted': ''}`}
+            {...rest}
+        >
             {title}
+        {children}
         </button>
     </div>
   )

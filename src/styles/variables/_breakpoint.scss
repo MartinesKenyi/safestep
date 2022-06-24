@@ -2,77 +2,77 @@
 *          BREAKPOINTS          *
 * ----------------------------- */
  
-@custom-media --mobile screen and (min-width: 360px);
-@custom-media --tablet screen and (min-width: 640px);
-@custom-media --desktop screen and (min-width: 1024px);
-@custom-media --tv screen and (min-width: 1400px);
+// @custom-media --mobile screen and (min-width: 360px);
+// @custom-media --tablet screen and (min-width: 640px);
+// @custom-media --desktop screen and (min-width: 1024px);
+// @custom-media --tv screen and (min-width: 1400px);
  
-// CUSTOM MEDIA QUERYS
-@custom-media --only-mobile screen and (max-width: 639px);
+// // CUSTOM MEDIA QUERYS
+// @custom-media --only-mobile screen and (max-width: 639px);
  
-// CUSTOM MEDIA QUERYS SUBSCRIPTIONS
-@custom-media --subs-mobile screen and (max-width: 680px);
-@custom-media --subs-tabletp screen and (min-width: 768px);
-@custom-media --subs-tabletl screen and (min-width: 769px) and (min-width: 1024px);
-@custom-media --subs-desktop screen and (min-width: 1200px);
+// // CUSTOM MEDIA QUERYS SUBSCRIPTIONS
+// @custom-media --subs-mobile screen and (max-width: 680px);
+// @custom-media --subs-tabletp screen and (min-width: 768px);
+// @custom-media --subs-tabletl screen and (min-width: 769px) and (min-width: 1024px);
+// @custom-media --subs-desktop screen and (min-width: 1200px);
  
-$map-breakpoints: "md", "lg";
+// $map-breakpoints: "md", "lg";
  
-// Traductor de nombre de breakpoint
-// Ejemplo  'md' --> '--tablet'
-@function breakpoint-name($breakpoint-id) {
- $breakpoint-res: "";
+// // Traductor de nombre de breakpoint
+// // Ejemplo  'md' --> '--tablet'
+// @function breakpoint-name($breakpoint-id) {
+//  $breakpoint-res: "";
  
- @if $breakpoint-id== "md" {
-   $breakpoint-res: "--tablet";
- } @else if $breakpoint-id== "lg" {
-   $breakpoint-res: "--desktop";
- }
+//  @if $breakpoint-id== "md" {
+//    $breakpoint-res: "--tablet";
+//  } @else if $breakpoint-id== "lg" {
+//    $breakpoint-res: "--desktop";
+//  }
  
- @return $breakpoint-res;
-}
+//  @return $breakpoint-res;
+// }
  
-// Constructor de breakpoints independientes para clases
-@mixin build-breakpoints($class-name, $class-property, $class-value) {
- @each $breakpoint in $map-breakpoints {
-   @media (breakpoint-name($breakpoint)) {
-     .#{$breakpoint}\:#{$class-name} {
-       #{$class-property}: $class-value;
-     }
-   }
- }
-}
+// // Constructor de breakpoints independientes para clases
+// @mixin build-breakpoints($class-name, $class-property, $class-value) {
+//  @each $breakpoint in $map-breakpoints {
+//    @media (breakpoint-name($breakpoint)) {
+//      .#{$breakpoint}\:#{$class-name} {
+//        #{$class-property}: $class-value;
+//      }
+//    }
+//  }
+// }
  
-@mixin build-class($class-name, $class-property, $class-value) {
- .#{$class-name} {
-   #{$class-property}: $class-value;
- }
+// @mixin build-class($class-name, $class-property, $class-value) {
+//  .#{$class-name} {
+//    #{$class-property}: $class-value;
+//  }
  
- @include build-breakpoints($class-name, $class-property, $class-value);
-}
+//  @include build-breakpoints($class-name, $class-property, $class-value);
+// }
 
-@mixin responsive($size) { 
-    @if $size == large { 
-        /* 1920px / @media (max-width: 120em) { @content; } } @if $size == small { / 1199px */ 
-        @media (max-width: 74.938em) { 
-            @content; 
-        } 
-    } 
-} 
-@include responsive(--tablet){ 
-    .account {
-        font-size: 42px; 
-        background: red;
+// @mixin responsive($size) { 
+//     @if $size == large { 
+//         /* 1920px / @media (max-width: 120em) { @content; } } @if $size == small { / 1199px */ 
+//         @media (max-width: 74.938em) { 
+//             @content; 
+//         } 
+//     } 
+// } 
+// @include responsive(--tablet){ 
+//     .account {
+//         font-size: 42px; 
+//         background: red;
 
-    }
-} 
-@include responsive(--desktop){ 
-    .account {
-        font-size: 22px; 
-        background: chartreuse;
+//     }
+// } 
+// @include responsive(--desktop){ 
+//     .account {
+//         font-size: 22px; 
+//         background: chartreuse;
 
-    }
-}
+//     }
+// }
  
  
 // MIENTRAS AUN NO FUNCIONA

@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 // SERVDIOR 
-export const server = 'https://safestep.herokuapp.com';
-const baseURL = `${server}/api`;
+// export const server = 'https://safestep.herokuapp.com';
+// const baseURL = `${server}/api`;
 
 // PRUEBA
-// export const server = 'http://192.168.0.104:8000';
-// const baseURL = `${server}/api`;
+export const server = 'http://192.168.0.104:8000';
+const baseURL = `${server}/api`;
 
 const axiosApi = axios.create({ baseURL });
 

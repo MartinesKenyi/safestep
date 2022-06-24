@@ -1,0 +1,22 @@
+.risk-map {
+    height: calc(100% - 40px);
+    position: relative;
+
+    &__map-container {
+        height: 100%;
+    }
+    &__wrap-info {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 2;
+        border-radius: 8px;
+        background: rgba(24, 24, 24, 0.8);
+        padding: 10px;
+        color: #fff;
+
+        h4 {
+            color: #fff;
+        }
+    }
+}

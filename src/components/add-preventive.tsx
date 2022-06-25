@@ -144,7 +144,7 @@ export const AddPreventive = ({ setIsAddPreventiveModal, isAddPreventiveModal, d
                     state: 'publicado',
                     multimedia: JSON.stringify((!tempUri && (delictivo?.multimedia && delictivo.multimedia?.length > 0)) ? delictivo.multimedia : [])
                 },
-                type
+                'preventive' // debe de crear para preventive
             );
 
             if (resp.ok) {
@@ -166,7 +166,6 @@ export const AddPreventive = ({ setIsAddPreventiveModal, isAddPreventiveModal, d
                         type
                     );
                 }
-
             } else {
                 console.log(resp)
                 alert('danger', 'Formulario', 'No se guardó')

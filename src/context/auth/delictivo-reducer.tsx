@@ -57,7 +57,11 @@ export const delictivoReducer = (state: DelictivoState, action: DelictivoAction)
             }
 
         case 'addDelictivo':
-            state.delictivos.unshift(action.payload.delictivo)
+            // NOSE PORQUE SE EJECUTA DOS VECES
+            // CON ESTO YA LO CONTROLAMOS
+            if (!state.delictivos.find(prev => prev.title === action.payload.delictivo.title)) {
+                state.delictivos.unshift(action.payload.delictivo)
+            }
             return {
                 ...state,
                 delictivos: [...state.delictivos]

@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9bda5350.css",
+    "main.js": "/static/js/main.0fe3b1c5.js",
+    "static/media/montserrat-v23-latin-700.woff": "/static/media/montserrat-v23-latin-700.85b386a6bf056f73ad68.woff",
+    "static/media/montserrat-v23-latin-500.woff": "/static/media/montserrat-v23-latin-500.b07aeee1835b67490b98.woff",
+    "static/media/montserrat-v23-latin-300.woff": "/static/media/montserrat-v23-latin-300.7e7ce57fd6008ffe5c24.woff",
+    "static/media/montserrat-v23-latin-900.woff": "/static/media/montserrat-v23-latin-900.51a66932fbe4f73601cb.woff",
+    "static/media/mulish-v10-latin-900.woff": "/static/media/mulish-v10-latin-900.631969df069bd8dbebb1.woff",
+    "static/media/mulish-v10-latin-500.woff": "/static/media/mulish-v10-latin-500.9f0ed00a49654e99db96.woff",
+    "static/media/mulish-v10-latin-700.woff": "/static/media/mulish-v10-latin-700.08f96c0352d1f8545f6a.woff",
+    "static/media/mulish-v10-latin-300.woff": "/static/media/mulish-v10-latin-300.0101fe38a6d493014a29.woff",
+    "static/media/montserrat-v23-latin-700.woff2": "/static/media/montserrat-v23-latin-700.6077783c63fa414406e1.woff2",
+    "static/media/montserrat-v23-latin-500.woff2": "/static/media/montserrat-v23-latin-500.730131c0fbe55c1ba282.woff2",
+    "static/media/montserrat-v23-latin-300.woff2": "/static/media/montserrat-v23-latin-300.a113f0d9a98e9857e436.woff2",
+    "static/media/montserrat-v23-latin-900.woff2": "/static/media/montserrat-v23-latin-900.13e7bd87a9ab784cb71b.woff2",
+    "static/media/mulish-v10-latin-900.woff2": "/static/media/mulish-v10-latin-900.ce108b9b923cea6d2304.woff2",
+    "static/media/mulish-v10-latin-500.woff2": "/static/media/mulish-v10-latin-500.a145f5bbb7323f3f000a.woff2",
+    "static/media/mulish-v10-latin-700.woff2": "/static/media/mulish-v10-latin-700.50a7b6b6469d71bf28b0.woff2",
+    "static/media/mulish-v10-latin-300.woff2": "/static/media/mulish-v10-latin-300.9cc6cf658a6e47ac474e.woff2",
+    "static/media/poppins-v19-latin-300.woff": "/static/media/poppins-v19-latin-300.5558b04900a67eaa589e.woff",
+    "static/media/poppins-v19-latin-700.woff": "/static/media/poppins-v19-latin-700.c54a52658bf21b37083d.woff",
+    "static/media/poppins-v19-latin-500.woff": "/static/media/poppins-v19-latin-500.8609f9c59114a158e3ad.woff",
+    "static/media/poppins-v19-latin-900.woff": "/static/media/poppins-v19-latin-900.e9a4612ce05576898118.woff",
+    "static/media/poppins-v19-latin-300.woff2": "/static/media/poppins-v19-latin-300.39576fe9df8a22cc1bcc.woff2",
+    "static/media/poppins-v19-latin-700.woff2": "/static/media/poppins-v19-latin-700.d86662fe776dae29ea78.woff2",
+    "static/media/poppins-v19-latin-500.woff2": "/static/media/poppins-v19-latin-500.08491d3f7fe7ae88ef44.woff2",
+    "static/media/poppins-v19-latin-900.woff2": "/static/media/poppins-v19-latin-900.7b1a4c85ba657964c6b6.woff2",
+    "index.html": "/index.html",
+    "main.9bda5350.css.map": "/static/css/main.9bda5350.css.map",
+    "main.0fe3b1c5.js.map": "/static/js/main.0fe3b1c5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9bda5350.css",
+    "static/js/main.0fe3b1c5.js"
+  ]
+}

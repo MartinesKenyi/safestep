@@ -25,7 +25,7 @@ const classes = {
 interface Props {
     setIsAddPreventiveModal: React.Dispatch<boolean>,
     isAddPreventiveModal: boolean,
-    delictivo?: Delictivo,
+    delictivo?: Delictivo | any,
     type: 'preventive' | 'delictivo' | '' | string
 }
 interface alertProps {
@@ -112,7 +112,7 @@ export const AddPreventive = ({ setIsAddPreventiveModal, isAddPreventiveModal, d
             const resp: any = await editDelictivo(
                 tempUri,
                 {
-                    user: userData?.uid || '',
+                    user: userData?.uid || '', // ERROR
                     title,
                     viewpermise: JSON.stringify(viewpermise),
                     description,
@@ -137,7 +137,7 @@ export const AddPreventive = ({ setIsAddPreventiveModal, isAddPreventiveModal, d
             const resp: any = await registerDelictivo(
                 tempUri,
                 {
-                    user: userData?.uid || '',
+                    user: userData?.uid || '', //
                     title,
                     viewpermise: JSON.stringify(viewpermise),
                     description,
@@ -158,7 +158,7 @@ export const AddPreventive = ({ setIsAddPreventiveModal, isAddPreventiveModal, d
                     editDelictivo(
                         undefined,
                         {
-                            user: userData?.uid || '',
+                            user: delictivo?.user._id || '',
                             title,
                             state: 'preventiva'
                         },
